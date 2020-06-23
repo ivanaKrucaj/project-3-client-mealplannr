@@ -1,5 +1,5 @@
 # Mealplannr
-The Mealplanner app lets users create their own recipes and store them in their individualized mealplans with corresponding shopping list (for ingredients).
+The Mealplanner app lets users create their own recipes and store them in their individualized mealplans with a corresponding shopping list (for ingredients).
 
 ## User Stories
 
