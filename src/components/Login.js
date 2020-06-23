@@ -1,32 +1,31 @@
-import React from 'react'
+import React from 'react';
+import './Login.css'
 
-export default function Login() {
+export default function Login(props) {
 
     return (
         <>
-            <form class="form-signin">
+            <form class="form-signin" onSubmit={props.onLogin}>
                 <div class="text-center mb-4">
-                    <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
-                    <h1 class="h3 mb-3 font-weight-normal">Mealplannr</h1>
+                    <h1 class="h3 mb-3 font-weight-normal">Welcome back!</h1>
                 </div>
 
                 <div class="form-label-group">
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" />
-                    <label for="inputEmail">Email address</label>
+                    <input type="email" name='email' class="form-control form-input" placeholder="Email"/>
                 </div>
 
                 <div class="form-label-group">
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" />
-                    <label for="inputPassword">Password</label>
+                    <input type="password" name='password' class="form-control form-input" placeholder="Password"/>
                 </div>
 
                 <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me" /> Remember me
-    </label>
+                    </label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                <p class="mt-5 mb-3 text-muted text-center">© 2017-2020</p>
+                <div>
+                    <button class="btn btn-lg btn-info" type="submit">Sign in</button>
+                </div>
             </form>
         </>
     )

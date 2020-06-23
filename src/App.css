@@ -1,3 +1,17 @@
-.container {
+/* .container {
   background-color:red;
+} */
+
+/* Signup and Login forms */
+.forms {
+  display: flex;
+  justify-content: space-around;
+}
+
+@media (max-width: 480px){
+  .forms {
+      display: block;
+      text-align: center;
+  }
+
 }

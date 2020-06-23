@@ -11,9 +11,7 @@ export default function Footer() {
 
     return (
         <>
-            <p className='fixed-bottom' style={footerStyle}>Created by the Mealplannr &copy; {currentYear}</p>
+            <p style={footerStyle}>Created by the Mealplannr &copy; {currentYear}</p>
         </>
     )
 }
-
-// added fixed-bottom to the footer, but might have to fixed that once I add more content to the pages
