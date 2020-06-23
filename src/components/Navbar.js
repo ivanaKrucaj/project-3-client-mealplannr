@@ -26,6 +26,7 @@ export default function Navbar() {
         </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 {/* <a class="dropdown-item" href="#">Mealplans</a> */}
+                                <a class="dropdown-item" href="#">My recipes</a>
                                 <a class="dropdown-item" href="#">Favorites</a>
                                 <a class="dropdown-item" href="#">Logout</a>
                             </div>
