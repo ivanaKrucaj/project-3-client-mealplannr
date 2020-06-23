@@ -147,6 +147,4 @@ MealplanModel
 
 ### Slides
 
-The url to your presentation slides
-
 [Slides Link](#)
