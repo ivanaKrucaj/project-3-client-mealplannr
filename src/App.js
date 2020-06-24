@@ -88,7 +88,7 @@ class App extends React.Component {
     axios.post(`${config.API_URL}/signin`, {
       email: email,
       password: password
-    }, {withCredentials: true})
+    }, { withCredentials: true })
       .then((res) => {
         this.setState({
           loggedInUser: res.data
@@ -152,12 +152,23 @@ class App extends React.Component {
       })
   }
 
+  recipeCreated = (recipe) => {
+    this.setState({
+      recipes: [...this.state.recipes, recipe]
+    }, () => {
+      this.props.history.push('/home')
+    })
+  }
+
   render() {
     const { loggedInUser } = this.state
 
     return (
       <div>
-        <Navbar loggedInUser={this.state.loggedInUser} onLogout={this.handleLogout} />
+        <div className='header'>
+          <h1>Mealplannr</h1>
+          <Navbar loggedInUser={this.state.loggedInUser} onLogout={this.handleLogout} />
+        </div>
         <div class='container'>
           <Switch>
             <Route exact path='/home' render={() => {
@@ -172,6 +183,7 @@ class App extends React.Component {
             <Route path='/create-recipe' render={(routeProps) => {
               return <CreateRecipe
                 loggedInUser={loggedInUser}
+                onRecipeCreated={this.recipeCreated}
                 // uploadFile={this.handleFileUpload}
                 // onAdd={this.handleCreateRecipe} 
                 {...routeProps}
@@ -179,7 +191,7 @@ class App extends React.Component {
             }} />
             <Route path='/recipe/:recipe_id' render={(routeProps) => {
               return <Recipe
-              loggedInUser={loggedInUser}
+                loggedInUser={loggedInUser}
                 {...routeProps}
               />
             }} />

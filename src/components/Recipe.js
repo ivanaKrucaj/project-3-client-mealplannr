@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import config from '../config';
-import { Redirect } from 'react-router-dom';
+import './Recipe.css'
+import { Redirect } from 'react-router-dom';  
 
 export default class Recipe extends React.Component {
 
@@ -10,10 +11,8 @@ export default class Recipe extends React.Component {
     }
 
     componentDidMount() {
-
         let id = this.props.match.params.recipe_id;
-        console.log(id)
-        axios.get(`${config.API_URL}/recipe/${id}`, { withCredentials: true })
+        axios.get(`${config.API_URL}/recipe/${id}`, { withCredentials: true } )    
             .then((res) => {
                 this.setState({
                     recipe: res.data
@@ -29,7 +28,7 @@ export default class Recipe extends React.Component {
     render() {
 
         // checking if user is logged in:
-        if (!this.props.loggedInUser) {
+        if (!this.props.loggedInUser) {                
             console.log(this.props.loggedInUser)
             return <Redirect to='/login' />
         }
@@ -48,27 +47,34 @@ export default class Recipe extends React.Component {
 
         return (
             <>
-                <div>
-                    <div>
+                <div className='row'>
+                    <div className='col-6 img-div'>
                         <img src={image} alt='recipe-img' />
                     </div>
-                    <div>
-                        <h1>{title}</h1>
+                    <div className='col-6 title-div'>
+                        <h1 className='recipe-title'>{title}</h1>
+                        <small>{type}</small> 
+                        <small>{number_of_portions} portion/s</small>
                         <h5>{description}</h5>
                     </div>
                 </div>
-                <div>
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link " href="#">Steps</a>
+                <div className='col-12'>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Steps</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Nutrition</a>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nutrition</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Ingredients</a>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Ingredients</a>
                         </li>
                     </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">{steps}</div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">nutrition info</div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">{ingredients}</div>
+                    </div>
                 </div>
             </>
         )

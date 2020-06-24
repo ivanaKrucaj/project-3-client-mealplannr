@@ -16,39 +16,27 @@ export default class CreateRecipe extends React.Component {
         let ingredients = event.target.ingredients.value;
         let type = event.target.type.value;
         let portions = event.target.portions.value;
-
-        axios.post('http://localhost:5000/api/recipe', {
-            title: title,
-            description: description,
-            steps: steps,
-            ingredients: ingredients,
-            type: type,
-            number_of_portions: portions
-        }, { withCredentials: true })
-            .then((res) => {
-                this.setState({
-                    recipes: [...this.state.recipes, res.data]
-                }, () => {
-                    this.props.history.push('/home')
-                })
-            })
-    }
-
-
-    handleFileUpload = (event) => {
-        event.preventDefault();
-        let image = event.target.files[0];
+        let image = event.target.image.files[0];
 
         let uploadData = new FormData();
         uploadData.append('imageUrl', image)
 
-
         axios.post(`${config.API_URL}/upload`, uploadData)
             .then((res) => {
-
+                axios.post(`${config.API_URL}/recipe`, {
+                    title: title,
+                    description: description,
+                    steps: steps,
+                    ingredients: ingredients,
+                    type: type,
+                    image: res.data.secure_url,
+                    number_of_portions: portions
+                }, { withCredentials: true })
+                    .then((res) => {
+                      this.props.onRecipeCreated(res.data)
+                    })
             })
     }
-
 
     render() {
         // checking if user is logged in:
@@ -67,7 +55,7 @@ export default class CreateRecipe extends React.Component {
                             <input type="text" name='description' class="form-control" placeholder="Description" />
                         </div>
                         <div class="form-group">
-                            <input type="file" onChange={this.uploadFile} name='image' class="form-control" />
+                            <input type="file" name='image' class="form-control" />
                         </div>
                         <div class="form-group">
                             <textarea class="form-control" name='steps' rows="5" placeholder='Steps'></textarea>

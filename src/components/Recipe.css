@@ -1,0 +1,15 @@
+.image-div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.title-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.recipe-title {
+    display: flex;
+}
