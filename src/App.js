@@ -88,7 +88,7 @@ class App extends React.Component {
     axios.post(`${config.API_URL}/signin`, {
       email: email,
       password: password
-    })
+    }, {withCredentials: true})
       .then((res) => {
         this.setState({
           loggedInUser: res.data
@@ -179,7 +179,7 @@ class App extends React.Component {
             }} />
             <Route path='/recipe/:recipe_id' render={(routeProps) => {
               return <Recipe
-              // loggedInUser={loggedInUser}
+              loggedInUser={loggedInUser}
                 {...routeProps}
               />
             }} />

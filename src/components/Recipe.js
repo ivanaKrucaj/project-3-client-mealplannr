@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import config from '../config';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 export default class Recipe extends React.Component {
 
@@ -10,10 +10,10 @@ export default class Recipe extends React.Component {
     }
 
     componentDidMount() {
-        
+
         let id = this.props.match.params.recipe_id;
         console.log(id)
-        axios.get(`${config.API_URL}/recipe/${id}`)
+        axios.get(`${config.API_URL}/recipe/${id}`, { withCredentials: true })
             .then((res) => {
                 this.setState({
                     recipe: res.data
@@ -29,10 +29,10 @@ export default class Recipe extends React.Component {
     render() {
 
         // checking if user is logged in:
-        // if (!this.props.loggedInUser) {
-        //     console.log(this.props.loggedInUser)
-        //     return <Redirect to='/login' />
-        // }
+        if (!this.props.loggedInUser) {
+            console.log(this.props.loggedInUser)
+            return <Redirect to='/login' />
+        }
 
         if (!this.state.recipe) {
             return (
@@ -60,16 +60,13 @@ export default class Recipe extends React.Component {
                 <div>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Active</a>
+                            <a class="nav-link " href="#">Steps</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">Nutrition</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
+                            <a class="nav-link" href="#">Ingredients</a>
                         </li>
                     </ul>
                 </div>
