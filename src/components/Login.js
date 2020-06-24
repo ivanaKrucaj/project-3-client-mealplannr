@@ -1,5 +1,5 @@
 import React from 'react';
-import './Login.css'
+import './Login.css';
 
 export default function Login(props) {
 
@@ -24,7 +24,7 @@ export default function Login(props) {
                     </label>
                 </div>
                 <div>
-                    <button class="btn btn-lg btn-info" type="submit">Sign in</button>
+                    <button class="btn btn-lg btn-login btn-trans" type="submit">Sign in</button>
                 </div>
             </form>
         </>

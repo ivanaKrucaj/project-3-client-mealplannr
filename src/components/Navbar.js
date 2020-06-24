@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css'
 
-export default function Navbar() {
+export default function Navbar(props) {
     return (
         <>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -28,7 +28,7 @@ export default function Navbar() {
                                 {/* <a class="dropdown-item" href="#">Mealplans</a> */}
                                 <a class="dropdown-item" href="#">My recipes</a>
                                 <a class="dropdown-item" href="#">Favorites</a>
-                                <a class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" onClick={props.onLogout}>Logout</a>
                             </div>
                         </li>
                     </ul>

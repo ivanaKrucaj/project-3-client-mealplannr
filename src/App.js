@@ -11,7 +11,8 @@ import Mealplans from './components/Mealplans';
 import CreateRecipe from './components/CreateRecipe';
 import Footer from './components/Footer';
 import Login from './components/Login';
-import Signup from './components/Signup'
+import Signup from './components/Signup';
+import Recipe from './components/Recipe';
 
 
 class App extends React.Component {
@@ -23,38 +24,38 @@ class App extends React.Component {
 
   getRecipes = () => {
     axios.get('http://localhost:5000/api/recipes')
-    .then((res) => {
-      this.setState({
-        recipes: res.data
+      .then((res) => {
+        this.setState({
+          recipes: res.data
+        })
       })
-    })
-    .catch((err) => {
-      if(err.response.status === 401) {
-        this.props.history.push('/login')
-      }
-    })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          this.props.history.push('/login')
+        }
+      })
   }
 
   // get user credentials:
-  getUser(){
-    axios.get(`${config.API_URL}/user`, {withCredentials: true})
+  getUser() {
+    axios.get(`${config.API_URL}/user`, {}, { withCredentials: true })
       .then((res) => {
         this.setState({
           loggedInUser: res.data
         })
       })
       .catch((err) => {
-        if(err.response.status === 401) {
+        if (err.response.status === 401) {
           this.props.history.push('/login')
         }
       })
   }
 
   componentDidMount() {
-   this.getRecipes();
-   if(!this.state.loggedInUser) {
+    this.getRecipes();
+    if (!this.state.loggedInUser) {
       this.getUser();
-   }
+    }
   }
 
   // signup:
@@ -76,7 +77,6 @@ class App extends React.Component {
           this.props.history.push('/home')
         })
       })
-
   }
 
   // login:
@@ -87,7 +87,7 @@ class App extends React.Component {
 
     axios.post(`${config.API_URL}/signin`, {
       email: email,
-      passwordHash: password
+      password: password
     })
       .then((res) => {
         this.setState({
@@ -98,55 +98,101 @@ class App extends React.Component {
       })
   }
 
-  // create recipe via form:
-  handleCreateRecipe = (event) => {
-    event.preventDefault();
-    let title = event.target.title.value;
-    let description = event.target.description.value;
-    let image = event.target.image.value;
-    let steps = event.target.steps.value;
-    let ingredients = event.target.ingredients.value;
-    let type = event.target.type.value;
-    let portions = event.target.portions.value;
+  // // create recipe via form:
+  // handleCreateRecipe = (event) => {
+  //   event.preventDefault();
+  //   let title = event.target.title.value;
+  //   let description = event.target.description.value;
+  //   let steps = event.target.steps.value;
+  //   let ingredients = event.target.ingredients.value;
+  //   let type = event.target.type.value;
+  //   let portions = event.target.portions.value;
 
-    axios.post('http://localhost:5000/api/recipe', {
-      title: title,
-      description: description,
-      image: image,
-      steps: steps,
-      ingredients: ingredients,
-      type: type,
-      number_of_portions: portions
-    })
+  //   axios.post('http://localhost:5000/api/recipe', {
+  //     title: title,
+  //     description: description,
+  //     steps: steps,
+  //     ingredients: ingredients,
+  //     type: type,
+  //     number_of_portions: portions
+  //   })
+  //     .then((res) => {
+  //       this.setState({
+  //         recipes: [...this.state.recipes, res.data]
+  //       }, () => {
+  //         this.props.history.push('/home')
+  //       })
+  //     })
+  // }
+
+  // handleFileUpload = (event) => {
+  //   event.preventDefault();
+  //   let image = event.target.image.files[0];
+
+  //   let uploadData = new FormData();
+  //   uploadData.append('imageUrl', image)
+
+  //   axios.post(`${config.API_URL}/upload`, uploadData)
+  //     .then((res) => {
+
+  //     })
+  // }
+
+
+  handleLogout = () => {
+    console.log(document.cookie)
+    axios.post(`${config.API_URL}/logout`, { withCredentials: true })
       .then((res) => {
+        console.log(res)
         this.setState({
-          recipes: [...this.state.recipes, res.data]
+          loggedInUser: null
         }, () => {
-          this.props.history.push('/home')
+          this.props.history.push('/login')
         })
       })
   }
 
   render() {
+    const { loggedInUser } = this.state
+
     return (
       <div>
-        <Navbar />
+        <Navbar loggedInUser={this.state.loggedInUser} onLogout={this.handleLogout} />
         <div class='container'>
           <Switch>
             <Route exact path='/home' render={() => {
-              return <Recipes recipes={this.state.recipes} />
+              return <Recipes
+                recipes={this.state.recipes} />
             }} />
-            <div className='forms'>
-              <Route path='/login' render={(routeProps) => {
-                return <Login onLogin={this.handleLogin} {...routeProps} />
-              }} />
-              <Route path='/login' render={(routeProps) => {
-                return <Signup onSignup={this.handleSignup} {...routeProps} />
-              }} />
-            </div>
-            <Route path='/mealplans' component={Mealplans} />
-            <Route path='/create-recipe' render={() => {
-              return <CreateRecipe onAdd={this.handleCreateRecipe} />
+            <Route path='/mealplans' render={() => {
+              return <Mealplans
+                loggedInUser={loggedInUser}
+              />
+            }} />
+            <Route path='/create-recipe' render={(routeProps) => {
+              return <CreateRecipe
+                loggedInUser={loggedInUser}
+                // uploadFile={this.handleFileUpload}
+                // onAdd={this.handleCreateRecipe} 
+                {...routeProps}
+              />
+            }} />
+            <Route path='/recipe/:recipe_id' render={(routeProps) => {
+              return <Recipe
+              // loggedInUser={loggedInUser}
+                {...routeProps}
+              />
+            }} />
+            <Route path='/login' render={(routeProps) => {
+              return <div className='forms'>
+                <Login
+                  onLogin={this.handleLogin}
+                  loggedInUser={loggedInUser}
+                  {...routeProps} />
+                <Signup
+                  onSignup={this.handleSignup}
+                  {...routeProps} />
+              </div>
             }} />
           </Switch>
           <Footer />

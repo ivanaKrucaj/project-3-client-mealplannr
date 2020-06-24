@@ -4,3 +4,24 @@
     margin: 25px 0;
     width: 130%;
 }
+
+/* .btn-trans {
+    transition: all 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.btn-login.btn-trans:after {
+    background: black;
+} */
+
+.btn-login {
+    color: white;
+    background-color: #76aa6f;
+    border-color: #76aa76;
+}
+
+.btn-signup {
+    color: #151515;
+    background-color: #e9da5d;
+    border-color: #e9da5d;
+}
