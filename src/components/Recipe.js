@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import config from '../config';
-import './Recipe.css'
-import { Redirect } from 'react-router-dom';  
+import './Recipe.css';
 
 export default class Recipe extends React.Component {
 
@@ -12,7 +11,7 @@ export default class Recipe extends React.Component {
 
     componentDidMount() {
         let id = this.props.match.params.recipe_id;
-        axios.get(`${config.API_URL}/recipe/${id}`, { withCredentials: true } )    
+        axios.get(`${config.API_URL}/recipe/${id}`, { withCredentials: true })
             .then((res) => {
                 this.setState({
                     recipe: res.data
@@ -27,18 +26,10 @@ export default class Recipe extends React.Component {
 
     render() {
 
-        // checking if user is logged in:
-        if (!this.props.loggedInUser) {                
-            console.log(this.props.loggedInUser)
-            return <Redirect to='/login' />
-        }
-
-        if (!this.state.recipe) {
+        if (!this.state.recipe || !this.props.loggedInUser) {
             return (
-                <div className="text-center">
-                    <div className="spinner-border" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
+                <div>
+                    <p>Please log in.</p>
                 </div>
             )
         }
@@ -53,27 +44,31 @@ export default class Recipe extends React.Component {
                     </div>
                     <div className='col-6 title-div'>
                         <h1 className='recipe-title'>{title}</h1>
-                        <small>{type}</small> 
-                        <small>{number_of_portions} portion/s</small>
+                        <p>{type}</p>
+                        <p>Serves {number_of_portions}</p>
                         <h5>{description}</h5>
                     </div>
                 </div>
                 <div className='col-12'>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Steps</a>
+                            <a class="nav-link active recipe-detail-nav" id="method-tab" data-toggle="tab" href="#method" role="tab" aria-controls="method" aria-selected="true">Method</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nutrition</a>
+                            <a class="nav-link recipe-detail-nav" id="nutrition-tab" data-toggle="tab" href="#nutrition" role="tab" aria-controls="nutrition" aria-selected="false">Nutrition per serving</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Ingredients</a>
+                            <a class="nav-link recipe-detail-nav" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">{steps}</div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">nutrition info</div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">{ingredients}</div>
+                        <div class="tab-pane active" id="method" role="tabpanel" aria-labelledby="method-tab">{steps}</div>
+                        <div class="tab-pane" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">nutrition info</div>
+                        <div class="tab-pane" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                        {/* {
+                            ingredients.map()
+                        } */}
+                        </div>
                     </div>
                 </div>
             </>

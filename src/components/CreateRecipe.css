@@ -3,6 +3,16 @@
     margin: 50px auto 0;
 }
 
+.type-portion-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.select-type {
+    position: relative;
+    background-color: white;
+}
+
 @media (max-width: 480px){
     .recipe-form {
         width: 100%;

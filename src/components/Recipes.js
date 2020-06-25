@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css'
+import './Recipes.css'
 
 export default function Recipes(props) {
-
     return (
-        <div>
-            <h1>Mealplannr</h1>
+        <>
             <div className='home-recipes'>
                 {
                     props.recipes.map((recipe, index) => {
@@ -17,8 +15,7 @@ export default function Recipes(props) {
                                         <img src={recipe.image} class="card-img-top" alt="..." />
                                         <div class="card-body">
                                             <h5 class="card-title">{recipe.title}</h5>
-                                            <p class="card-text">{recipe.description}</p>
-                                            <button class="btn btn-primary"><Link to="`/mealplans`" style={{ color: 'white' }}>Add to mealplan</Link></button>
+                                            <button class="btn btn-primary" onClick={(event) => props.onAddToMealplan(event, recipe)}><Link to="/recipe-list" style={{ color: 'white' }}>Add to mealplan</Link></button>
                                         </div>
                                     </div>
                                 </Link>
@@ -26,7 +23,7 @@ export default function Recipes(props) {
                     })
                 }
             </div>
-        </div>
+        </>
 
     )
 }

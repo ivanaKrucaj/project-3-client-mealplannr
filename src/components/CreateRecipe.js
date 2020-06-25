@@ -1,6 +1,6 @@
 import React from 'react';
 import './CreateRecipe.css';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import config from '../config'
 
@@ -30,19 +30,29 @@ export default class CreateRecipe extends React.Component {
                     ingredients: ingredients,
                     type: type,
                     image: res.data.secure_url,
-                    number_of_portions: portions
+                    number_of_portions: portions,
+                    user: this.props.loggedInUser
                 }, { withCredentials: true })
                     .then((res) => {
-                      this.props.onRecipeCreated(res.data)
+                        this.props.onRecipeCreated(res.data)
                     })
             })
     }
 
     render() {
         // checking if user is logged in:
+        // if (!this.props.loggedInUser) {
+        //     return null
+        // }
+
         if (!this.props.loggedInUser) {
-            return <Redirect to='/login' />
+            return (
+                <div className="text-center">
+                    <p>Please sign in.</p>
+                </div>
+            )
         }
+
         return (
             <>
                 <h1>Create recipe</h1>
@@ -63,15 +73,17 @@ export default class CreateRecipe extends React.Component {
                         <div class="form-group">
                             <input type="text" name='ingredients' class="form-control" placeholder="Ingredients" />
                         </div>
-                        <select name='type'>
-                            <option>Meal type</option>
-                            <option>Breakfast</option>
-                            <option>Lunch</option>
-                            <option>Dinner</option>
-                            <option>Snack</option>
-                        </select>
-                        <div class="form-group">
-                            <input type="number" name='portions' class="form-control" placeholder="Number of portions" />
+                        <div className='type-portion-div'>
+                            <select name='type' className='select-type'>
+                                <option disabled selected hidden>Meal type</option>
+                                <option>Breakfast</option>
+                                <option>Lunch</option>
+                                <option>Dinner</option>
+                                <option>Snack</option>
+                            </select>
+                            <div class="form-group">
+                                <input type="number" min='0' name='portions' class="form-control" placeholder="Number of portions" />
+                            </div>
                         </div>
                         <div>
                             <button type="submit" class="btn btn-success">Submit</button>

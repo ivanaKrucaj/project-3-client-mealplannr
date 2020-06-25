@@ -13,3 +13,7 @@
 .recipe-title {
     display: flex;
 }
+
+.recipe-detail-nav {
+    color: #212121;
+}

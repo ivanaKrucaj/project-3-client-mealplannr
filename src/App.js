@@ -1,25 +1,30 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import logo from './images/logo.png'
 import axios from 'axios';
 import config from './config'
 import Navbar from './components/Navbar';
 import Recipes from './components/Recipes';
-import Mealplans from './components/Mealplans';
+import MealplanBasket from './components/MealplanBasket';
 import CreateRecipe from './components/CreateRecipe';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Recipe from './components/Recipe';
+import Header from './components/Header';
+import AllMealplans from './components/AllMealplans';
+import MealplanDetails from './components/MealplanDetails'
 
 
 class App extends React.Component {
 
   state = {
     recipes: [],
-    loggedInUser: null
+    loggedInUser: null,
+    mealplanBasket: []
   }
 
   getRecipes = () => {
@@ -38,7 +43,7 @@ class App extends React.Component {
 
   // get user credentials:
   getUser() {
-    axios.get(`${config.API_URL}/user`, {}, { withCredentials: true })
+    axios.get(`${config.API_URL}/user`, { withCredentials: true })
       .then((res) => {
         this.setState({
           loggedInUser: res.data
@@ -98,47 +103,6 @@ class App extends React.Component {
       })
   }
 
-  // // create recipe via form:
-  // handleCreateRecipe = (event) => {
-  //   event.preventDefault();
-  //   let title = event.target.title.value;
-  //   let description = event.target.description.value;
-  //   let steps = event.target.steps.value;
-  //   let ingredients = event.target.ingredients.value;
-  //   let type = event.target.type.value;
-  //   let portions = event.target.portions.value;
-
-  //   axios.post('http://localhost:5000/api/recipe', {
-  //     title: title,
-  //     description: description,
-  //     steps: steps,
-  //     ingredients: ingredients,
-  //     type: type,
-  //     number_of_portions: portions
-  //   })
-  //     .then((res) => {
-  //       this.setState({
-  //         recipes: [...this.state.recipes, res.data]
-  //       }, () => {
-  //         this.props.history.push('/home')
-  //       })
-  //     })
-  // }
-
-  // handleFileUpload = (event) => {
-  //   event.preventDefault();
-  //   let image = event.target.image.files[0];
-
-  //   let uploadData = new FormData();
-  //   uploadData.append('imageUrl', image)
-
-  //   axios.post(`${config.API_URL}/upload`, uploadData)
-  //     .then((res) => {
-
-  //     })
-  // }
-
-
   handleLogout = () => {
     console.log(document.cookie)
     axios.post(`${config.API_URL}/logout`, { withCredentials: true })
@@ -160,56 +124,116 @@ class App extends React.Component {
     })
   }
 
+  handleAddToMealplan = (event, recipe) => {
+    event.preventDefault();
+    let newMealplan = [...this.state.mealplanBasket]
+    newMealplan.push(recipe)
+    this.setState({
+      mealplanBasket: newMealplan
+    })
+  }
+
+  handleSaveMealplan = (event) => {
+    event.preventDefault();
+    let mealplanName = event.target.mealplanName.value;
+
+    axios.post(`${config.API_URL}/mealplan`, {
+      title: mealplanName,
+      recipes: this.state.mealplanBasket
+    }, { withCredentials: true })
+      .then((res) => {
+        this.setState({
+          mealplanBasket: []
+        })
+        this.props.history.push('/mealplans')
+      })
+  }
+
   render() {
     const { loggedInUser } = this.state
 
     return (
-      <div>
+      <>
+        <div className='logo-header'>
+          <img src={logo} className='logo' alt='mealplannr-logo' />
+        </div>
         <div className='header'>
-          <h1>Mealplannr</h1>
           <Navbar loggedInUser={this.state.loggedInUser} onLogout={this.handleLogout} />
         </div>
-        <div class='container'>
-          <Switch>
-            <Route exact path='/home' render={() => {
-              return <Recipes
-                recipes={this.state.recipes} />
-            }} />
-            <Route path='/mealplans' render={() => {
-              return <Mealplans
-                loggedInUser={loggedInUser}
-              />
-            }} />
-            <Route path='/create-recipe' render={(routeProps) => {
-              return <CreateRecipe
-                loggedInUser={loggedInUser}
-                onRecipeCreated={this.recipeCreated}
-                // uploadFile={this.handleFileUpload}
-                // onAdd={this.handleCreateRecipe} 
-                {...routeProps}
-              />
-            }} />
-            <Route path='/recipe/:recipe_id' render={(routeProps) => {
-              return <Recipe
-                loggedInUser={loggedInUser}
-                {...routeProps}
-              />
-            }} />
-            <Route path='/login' render={(routeProps) => {
-              return <div className='forms'>
-                <Login
-                  onLogin={this.handleLogin}
-                  loggedInUser={loggedInUser}
-                  {...routeProps} />
-                <Signup
-                  onSignup={this.handleSignup}
-                  {...routeProps} />
+        <Switch>
+          <Route exact path='/home' render={(routeProps) => {
+            return (
+              <>
+                <Header />
+                <div className='container'>
+                <h1>Our recipes</h1>
+                  <Recipes recipes={this.state.recipes}
+                    onAddToMealplan={this.handleAddToMealplan}
+                    {...routeProps} />
+                </div>
+              </>
+            )
+          }} />
+          <Route path='/mealplans' render={() => {
+            return (
+              <div className='container'>
+                <AllMealplans />
               </div>
-            }} />
-          </Switch>
-          <Footer />
-        </div>
-      </div>
+            )
+          }} />
+          <Route path='/create-recipe' render={(routeProps) => {
+            return (
+              <div className='container'>
+                <CreateRecipe
+                  loggedInUser={loggedInUser}
+                  onRecipeCreated={this.recipeCreated}
+                  {...routeProps}
+                />
+              </div>
+            )
+          }} />
+          <Route path='/recipe/:recipe_id' render={(routeProps) => {
+            return (<div className='container'>
+              <Recipe
+                loggedInUser={loggedInUser}
+                {...routeProps}
+              />
+            </div>)
+          }} />
+          <Route path='/login' render={(routeProps) => {
+            return <div className='forms container'>
+              <Login
+                onLogin={this.handleLogin}
+                {...routeProps} />
+              <Signup
+                onSignup={this.handleSignup}
+                {...routeProps} />
+            </div>
+          }} />
+          <Route exact path='/recipe-list' render={() => {
+            return (
+              <>
+                <MealplanBasket
+                  loggedInUser={loggedInUser}
+                  mealplanBasket={this.state.mealplanBasket}
+                  onSaveMealplan={this.handleSaveMealplan}
+                />
+              </>
+            )
+          }} />
+          <Route exact path='/mealplan/:mealplan_id' render={(routeProps) => {
+            return (
+              <>
+                <MealplanDetails
+                  loggedInUser={loggedInUser}
+                  {...routeProps}
+                />
+              </>
+            )
+          }} />
+        </Switch>
+        <Footer />
+      </>
     );
   }
 }

@@ -1,6 +1,7 @@
 .home-recipes {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 h1 {

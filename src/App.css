@@ -1,6 +1,61 @@
-/* Header */
+/* Header  component */
 .header {
-  background-color: #83bd94;
+  background-color: #e9da5d;
+}
+
+.logo-header {
+  text-align: center;
+}
+
+.teaser-title {
+  text-align: start;
+  padding: 20px 0 0;
+  color: #ffffff;
+  font-size: 45px;
+  font-weight: 800;
+}
+
+.teaser-par {
+  color: white;
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.login-btn {
+  background-color: #c83b12;
+  color: white;
+  width: 90px;
+  padding: 7px 10px;
+  font-weight: 700;
+}
+
+.logo {
+  width: 120px;
+  margin: 10px 0;
+}
+
+.header-teaser {
+  background-color: #e9da5d;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 0 0 0 10%;
+}
+
+/* .header-img-div{
+  display: flex;
+  justify-content: start;
+} */
+
+
+/* Recipes display */
+.recipes-home {
+  display: flex;
+}
+
+.header-img {
+  height: 380px;
+  z-index: 0;
 }
 
 /* Signup and Login forms */
@@ -13,6 +68,23 @@
   .forms {
       display: block;
       text-align: center;
+  }
+
+  .logo {
+    width: 160px;
+    margin: 20px 0 10px;
+  }
+  .teaser-title {
+    padding: 10px 0 0;
+    font-size: 21px;
+  }
+  .teaser-par {
+    display: none;
+  }
+  .btn {
+    padding: 7px 10px;
+    font-size: 17px;
+    font-weight: 700;
   }
 
 }
