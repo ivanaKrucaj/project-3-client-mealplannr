@@ -25,15 +25,16 @@ export default function MealplanBasket(props) {
                 props.mealplanBasket.map((recipe, index) => {
                     return (
                         <>
+                         <div class="card" style={{ width: '18rem' }} key={index}>
                             <Link to={`/recipe/${recipe._id}`} >
-                                <div class="card" style={{ width: '18rem' }} key={index}>
-                                    <img src={recipe.image} class="card-img-top" alt="..." />
-                                    <div class="card-body">
-                                        <h5 class="card-title">{recipe.title}</h5>
-                                        <p class="card-text">{recipe.description}</p>
-                                    </div>
+                                <img src={recipe.image} class="card-img-top" alt="..." />
+                                <div class="card-body">
+                                    <h5 class="card-title">{recipe.title}</h5>
+                                    <p class="card-text">{recipe.description}</p>
                                 </div>
                             </Link>
+                            <button className='btn btn-outline-danger' onClick={() => {props.onDelete(recipe)}}>Delete</button>
+                        </div>
                         </>)
                 })
             }

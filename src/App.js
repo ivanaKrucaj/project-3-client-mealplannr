@@ -64,6 +64,9 @@ class App extends React.Component {
     if (!this.state.loggedInUser) {
       this.getUser();
     }
+    this.setState({
+      mealplanBasket: JSON.parse(localStorage.getItem('currentMealplanBasket'))|| []
+    })
   }
 
   // signup:
@@ -131,6 +134,7 @@ class App extends React.Component {
     event.preventDefault();
     let newMealplan = [...this.state.mealplanBasket]
     newMealplan.push(recipe)
+    localStorage.setItem('currentMealplanBasket', JSON.stringify(newMealplan))
     this.setState({
       mealplanBasket: newMealplan
     })
@@ -148,6 +152,8 @@ class App extends React.Component {
         this.setState({
           mealplanBasket: []
         })
+        // empties local storage:
+        localStorage.setItem('currentMealplanBasket', JSON.stringify([]))
         this.props.history.push('/mealplans')
       })
   }
@@ -161,6 +167,16 @@ class App extends React.Component {
 
     this.setState({
       filteredRecipes: newRecipes
+    })
+  }
+
+  handleDeleteRecipeFromMealplanBasket = (recipeToDelete) => {
+    const mealplansNotDeleted = JSON.parse(localStorage.getItem('currentMealplanBasket')).filter((recipe) => {
+        return recipe._id !== recipeToDelete._id
+    })
+    localStorage.setItem('currentMealplanBasket', JSON.stringify(mealplansNotDeleted));
+    this.setState({
+      mealplanBasket: mealplansNotDeleted
     })
   }
 
@@ -235,6 +251,7 @@ class App extends React.Component {
                   loggedInUser={loggedInUser}
                   mealplanBasket={this.state.mealplanBasket}
                   onSaveMealplan={this.handleSaveMealplan}
+                  onDelete={this.handleDeleteRecipeFromMealplanBasket}
                 />
               </>
             )
