@@ -7,7 +7,7 @@ export default function Recipes(props) {
         <>
             <div className='home-recipes'>
                 {
-                    props.recipes.map((recipe, index) => {
+                    props.filteredRecipes.map((recipe, index) => {
                         return (
                             <>
                                 <Link to={`/recipe/${recipe._id}`} >

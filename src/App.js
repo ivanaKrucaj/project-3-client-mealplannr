@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import logo from './images/logo.png'
+// import logo from './images/logo.png'
 import axios from 'axios';
 import config from './config'
 import Navbar from './components/Navbar';
@@ -16,7 +16,8 @@ import Signup from './components/Signup';
 import Recipe from './components/Recipe';
 import Header from './components/Header';
 import AllMealplans from './components/AllMealplans';
-import MealplanDetails from './components/MealplanDetails'
+import MealplanDetails from './components/MealplanDetails';
+import FilterRecipes from './components/FilterRecipes'
 
 
 class App extends React.Component {
@@ -24,14 +25,16 @@ class App extends React.Component {
   state = {
     recipes: [],
     loggedInUser: null,
-    mealplanBasket: []
+    mealplanBasket: [],
+    filteredRecipes: []
   }
 
   getRecipes = () => {
     axios.get('http://localhost:5000/api/recipes')
       .then((res) => {
         this.setState({
-          recipes: res.data
+          recipes: res.data,
+          filteredRecipes: res.data
         })
       })
       .catch((err) => {
@@ -149,14 +152,26 @@ class App extends React.Component {
       })
   }
 
+  handleFilterRecipes = (event) => {
+    let recipeInput = event.target.value
+
+    let newRecipes = this.state.recipes.filter((recipe) => {
+      return recipe.title.toLowerCase().includes(recipeInput.toLowerCase())
+    })
+
+    this.setState({
+      filteredRecipes: newRecipes
+    })
+  }
+
   render() {
     const { loggedInUser } = this.state
 
     return (
       <>
-        <div className='logo-header'>
+        {/* <div className='logo-header'>
           <img src={logo} className='logo' alt='mealplannr-logo' />
-        </div>
+        </div> */}
         <div className='header'>
           <Navbar loggedInUser={this.state.loggedInUser} onLogout={this.handleLogout} />
         </div>
@@ -166,8 +181,11 @@ class App extends React.Component {
               <>
                 <Header />
                 <div className='container'>
-                <h1>Our recipes</h1>
-                  <Recipes recipes={this.state.recipes}
+                  <h1>Our recipes</h1>
+                  <FilterRecipes onFilter={this.handleFilterRecipes} />
+                  <Recipes 
+                    filteredRecipes={this.state.filteredRecipes}
+                    // recipes={this.state.recipes}
                     onAddToMealplan={this.handleAddToMealplan}
                     {...routeProps} />
                 </div>
