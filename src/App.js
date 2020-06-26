@@ -17,7 +17,8 @@ import Recipe from './components/Recipe';
 import Header from './components/Header';
 import AllMealplans from './components/AllMealplans';
 import MealplanDetails from './components/MealplanDetails';
-import FilterRecipes from './components/FilterRecipes'
+import FilterRecipes from './components/FilterRecipes';
+import UpdateRecipe from './components/UpdateRecipe';
 
 
 class App extends React.Component {
@@ -65,7 +66,7 @@ class App extends React.Component {
       this.getUser();
     }
     this.setState({
-      mealplanBasket: JSON.parse(localStorage.getItem('currentMealplanBasket'))|| []
+      mealplanBasket: JSON.parse(localStorage.getItem('currentMealplanBasket')) || []
     })
   }
 
@@ -172,7 +173,7 @@ class App extends React.Component {
 
   handleDeleteRecipeFromMealplanBasket = (recipeToDelete) => {
     const mealplansNotDeleted = JSON.parse(localStorage.getItem('currentMealplanBasket')).filter((recipe) => {
-        return recipe._id !== recipeToDelete._id
+      return recipe._id !== recipeToDelete._id
     })
     localStorage.setItem('currentMealplanBasket', JSON.stringify(mealplansNotDeleted));
     this.setState({
@@ -199,7 +200,7 @@ class App extends React.Component {
                 <div className='container'>
                   <h1>Our recipes</h1>
                   <FilterRecipes onFilter={this.handleFilterRecipes} />
-                  <Recipes 
+                  <Recipes
                     filteredRecipes={this.state.filteredRecipes}
                     // recipes={this.state.recipes}
                     onAddToMealplan={this.handleAddToMealplan}
@@ -244,7 +245,7 @@ class App extends React.Component {
                 {...routeProps} />
             </div>
           }} />
-          <Route exact path='/recipe-list' render={() => {
+          <Route exact path='/mealplan-basket' render={() => {
             return (
               <>
                 <MealplanBasket
@@ -262,6 +263,16 @@ class App extends React.Component {
                 <MealplanDetails
                   loggedInUser={loggedInUser}
                   {...routeProps}
+                />
+              </>
+            )
+          }} />
+          <Route exact path="/edit-recipe/:recipe_id" render={(routeProps) => {
+            return (
+              <>
+                <UpdateRecipe
+                  {...routeProps}
+                  onUpdate={this.getUser}
                 />
               </>
             )
