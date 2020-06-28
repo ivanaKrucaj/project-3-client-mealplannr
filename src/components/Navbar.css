@@ -1,3 +1,9 @@
+.intro-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 5% 20px;
+}
+
 .my-nav {
     display: flex;
     justify-content: center;
@@ -14,12 +20,12 @@
 }
 
 .my-navbar {
-    padding: 20px 0;
+    padding: 20px 100px;
     margin: 30px 0;
     border: 1px solid white;
     border-width: 1px 0;
 }
 
-.nav-list {
-    
+.navbar {
+    background-color: transparent;
 }

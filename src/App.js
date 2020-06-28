@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+import 'bulma/css/bulma.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 // import logo from './images/logo.png'
@@ -19,15 +20,15 @@ import AllMealplans from './components/AllMealplans';
 import MealplanDetails from './components/MealplanDetails';
 import FilterRecipes from './components/FilterRecipes';
 import UpdateRecipe from './components/UpdateRecipe';
-
+import MyRecipes from './components/MyRecipes'
 
 class App extends React.Component {
 
   state = {
     recipes: [],
     loggedInUser: null,
-    mealplanBasket: [],
-    filteredRecipes: []
+    filterText: '',
+    mealplanBasket: []
   }
 
   getRecipes = () => {
@@ -46,7 +47,7 @@ class App extends React.Component {
   }
 
   // get user credentials:
-  getUser() {
+  getUser = () => {
     axios.get(`${config.API_URL}/user`, { withCredentials: true })
       .then((res) => {
         this.setState({
@@ -61,13 +62,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      mealplanBasket: JSON.parse(localStorage.getItem('currentMealplanBasket')) || []
+    })
     this.getRecipes();
     if (!this.state.loggedInUser) {
       this.getUser();
     }
-    this.setState({
-      mealplanBasket: JSON.parse(localStorage.getItem('currentMealplanBasket')) || []
-    })
   }
 
   // signup:
@@ -162,12 +163,14 @@ class App extends React.Component {
   handleFilterRecipes = (event) => {
     let recipeInput = event.target.value
 
-    let newRecipes = this.state.recipes.filter((recipe) => {
-      return recipe.title.toLowerCase().includes(recipeInput.toLowerCase())
-    })
-
     this.setState({
-      filteredRecipes: newRecipes
+      filterText: recipeInput
+    })
+  }
+
+  filterRecipes = () => {
+     return this.state.recipes.filter((recipe) => {
+      return recipe.title.toLowerCase().includes(this.state.filterText.toLowerCase())
     })
   }
 
@@ -190,94 +193,116 @@ class App extends React.Component {
           <img src={logo} className='logo' alt='mealplannr-logo' />
         </div> */}
         <div className='header'>
-          <Navbar loggedInUser={this.state.loggedInUser} onLogout={this.handleLogout} />
+          <Navbar
+            loggedInUser={this.state.loggedInUser}
+            onLogout={this.handleLogout}
+          />
         </div>
-        <Switch>
-          <Route exact path='/home' render={(routeProps) => {
-            return (
-              <>
-                <Header />
+        <div className='home-div'>
+          <Switch>
+            <Route exact path='/home' render={(routeProps) => {
+              return (
+                <>
+                  <Header />
+                  <div className='container'>
+                    <div className='filter-div'>
+                      <h1 className='recipes-title'>Recipes</h1>
+                      <FilterRecipes
+                        filter={this.state.filterText}
+                        onFilter={this.handleFilterRecipes}
+                      />
+                    </div>
+                    <Recipes
+                      filteredRecipes={this.filterRecipes()}
+                      onAddToMealplan={this.handleAddToMealplan}
+                      {...routeProps} />
+                  </div>
+                </>
+              )
+            }} />
+            <Route path='/mealplans' render={() => {
+              return (
                 <div className='container'>
-                  <h1>Our recipes</h1>
-                  <FilterRecipes onFilter={this.handleFilterRecipes} />
-                  <Recipes
-                    filteredRecipes={this.state.filteredRecipes}
-                    // recipes={this.state.recipes}
-                    onAddToMealplan={this.handleAddToMealplan}
-                    {...routeProps} />
+                  <AllMealplans
+                    loggedInUser={loggedInUser}
+                  />
                 </div>
-              </>
-            )
-          }} />
-          <Route path='/mealplans' render={() => {
-            return (
-              <div className='container'>
-                <AllMealplans />
+              )
+            }} />
+            <Route path='/create-recipe' render={(routeProps) => {
+              return (
+                <div className='container'>
+                  <CreateRecipe
+                    loggedInUser={loggedInUser}
+                    onRecipeCreated={this.recipeCreated}
+                    {...routeProps}
+                  />
+                </div>
+              )
+            }} />
+            <Route path='/recipe/:recipe_id' render={(routeProps) => {
+              return (<div className='container'>
+                <Recipe
+                  {...routeProps}
+                />
+              </div>)
+            }} />
+            <Route path='/login' render={(routeProps) => {
+              return <div className='forms container'>
+                <Login
+                  onLogin={this.handleLogin}
+                  {...routeProps} />
+                <Signup
+                  onSignup={this.handleSignup}
+                  {...routeProps} />
               </div>
-            )
-          }} />
-          <Route path='/create-recipe' render={(routeProps) => {
-            return (
-              <div className='container'>
-                <CreateRecipe
-                  loggedInUser={loggedInUser}
-                  onRecipeCreated={this.recipeCreated}
-                  {...routeProps}
-                />
-              </div>
-            )
-          }} />
-          <Route path='/recipe/:recipe_id' render={(routeProps) => {
-            return (<div className='container'>
-              <Recipe
-                loggedInUser={loggedInUser}
-                {...routeProps}
-              />
-            </div>)
-          }} />
-          <Route path='/login' render={(routeProps) => {
-            return <div className='forms container'>
-              <Login
-                onLogin={this.handleLogin}
-                {...routeProps} />
-              <Signup
-                onSignup={this.handleSignup}
-                {...routeProps} />
-            </div>
-          }} />
-          <Route exact path='/mealplan-basket' render={() => {
-            return (
-              <>
-                <MealplanBasket
-                  loggedInUser={loggedInUser}
-                  mealplanBasket={this.state.mealplanBasket}
-                  onSaveMealplan={this.handleSaveMealplan}
-                  onDelete={this.handleDeleteRecipeFromMealplanBasket}
-                />
-              </>
-            )
-          }} />
-          <Route exact path='/mealplan/:mealplan_id' render={(routeProps) => {
-            return (
-              <>
-                <MealplanDetails
+            }} />
+            <Route exact path='/mealplan-basket' render={() => {
+              return (
+                <>
+                  <MealplanBasket
+                    loggedInUser={loggedInUser}
+                    mealplanBasket={this.state.mealplanBasket}
+                    onSaveMealplan={this.handleSaveMealplan}
+                    onDelete={this.handleDeleteRecipeFromMealplanBasket}
+                  />
+                </>
+              )
+            }} />
+            <Route exact path='/mealplan/:mealplan_id' render={(routeProps) => {
+              return (
+                <>
+                  <MealplanDetails
+                    loggedInUser={loggedInUser}
+                    {...routeProps}
+                  />
+                </>
+              )
+            }} />
+            <Route exact path="/edit-recipe/:recipe_id" render={(routeProps) => {
+              return (
+                <>
+                  <UpdateRecipe
+                    loggedInUser={loggedInUser}
+                    {...routeProps}
+                    onUpdate={this.getRecipes}
+                  />
+                </>
+              )
+            }} />
+            <Route path='/my-recipes' render={(routeProps) => {
+              console.log(loggedInUser)
+              return (
+                <>
+                <MyRecipes
                   loggedInUser={loggedInUser}
                   {...routeProps}
                 />
-              </>
-            )
-          }} />
-          <Route exact path="/edit-recipe/:recipe_id" render={(routeProps) => {
-            return (
-              <>
-                <UpdateRecipe
-                  {...routeProps}
-                  onUpdate={this.getUser}
-                />
-              </>
-            )
-          }} />
-        </Switch>
+                </>
+              )
+            }} />
+          </Switch>
+        </div>
         <Footer />
       </>
     );

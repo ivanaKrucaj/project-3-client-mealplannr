@@ -21,6 +21,12 @@ export default function Signup(props){
                 <div class="form-label-group">
                     <input type="password" name='password' class="form-control form-input" placeholder="Password" required="" />
                 </div>
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me" /> Remember me
+                    </label>
+                </div>
                 <div>
                     <button class="btn btn-lg btn-signup btn-trans" type="submit">Create an account</button>
                 </div>

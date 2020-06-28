@@ -5,13 +5,7 @@ export default function MealplanBasket(props) {
 
     //add message
     if (!props.loggedInUser) {
-        return (
-            (
-                <div class="spinner-border text-warning" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            )
-        )
+        return (<p>Please login</p>)
     }
 
     return (
@@ -25,16 +19,15 @@ export default function MealplanBasket(props) {
                 props.mealplanBasket.map((recipe, index) => {
                     return (
                         <>
-                         <div class="card" style={{ width: '18rem' }} key={index}>
-                            <Link to={`/recipe/${recipe._id}`} >
-                                <img src={recipe.image} class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">{recipe.title}</h5>
-                                    <p class="card-text">{recipe.description}</p>
-                                </div>
-                            </Link>
-                            <button className='btn btn-outline-danger' onClick={() => {props.onDelete(recipe)}}>Delete</button>
-                        </div>
+                            <div class="card" style={{ width: '18rem' }} key={index}>
+                                <Link to={`/recipe/${recipe._id}`} >
+                                    <img src={recipe.image} class="card-img-top" alt="..." />
+                                    <div class="card-body">
+                                        <h5 class="card-title">{recipe.title}</h5>
+                                    </div>
+                                </Link>
+                                <button className='btn btn-outline-danger' onClick={() => { props.onDelete(recipe) }}>Delete</button>
+                            </div>
                         </>)
                 })
             }

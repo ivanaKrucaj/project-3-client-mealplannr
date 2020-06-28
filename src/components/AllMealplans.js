@@ -50,7 +50,6 @@ export default class AllMealplans extends React.Component {
     }
 
     render() {
-
         if (this.state.loading) {
             return (
                 <div class="spinner-border text-warning" role="status">

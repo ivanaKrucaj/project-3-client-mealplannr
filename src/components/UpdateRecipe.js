@@ -13,21 +13,39 @@ export default class UpdateRecipe extends React.Component {
         axios.get(`${config.API_URL}/recipe/${id}`, { withCredentials: true })
             .then((res) => {
                 this.setState({
-                    recipe: res.data
+                    recipe: res.data,
+                    imageSource: res.data.image
                 })
             })
     }
 
     handleRecipeUpdate = (event) => {
         event.preventDefault();
-        let id = this.props.match.params.id
+        let id = this.props.match.params.recipe_id
+
+        // if imageSource and recipe image urls are different we need to first upload the image
+        if (this.state.imageSource !== this.state.recipe.image) {
+            let image = event.target.image.files[0];
+            let uploadData = new FormData();
+            uploadData.append('imageUrl', image)
+
+            axios.post(`${config.API_URL}/upload`, uploadData)
+                .then((res) => {
+                    this.updateRecipe(id, res.data.secure_url)
+                })
+        } else {
+            this.updateRecipe(id, this.state.recipe.image)
+        }
+    }
+
+    updateRecipe = (id, image_url) => {
         axios.put(`${config.API_URL}/recipe/${id}`, {
             title: this.state.recipe.title,
             description: this.state.recipe.description,
-            image: this.state.recipe.image,
+            image: image_url,
             steps: this.state.recipe.steps,
-            ingredients: this.state.recipe.ingredients,
-            portions: this.state.recipe.number_of_portions,
+            ingredients: this.state.recipe.ingredientText,
+            number_of_portions: this.state.recipe.number_of_portions,
             type: this.state.recipe.type
         }, { withCredentials: true })
             .then(() => {
@@ -58,13 +76,15 @@ export default class UpdateRecipe extends React.Component {
     }
 
     handleImageChange = (event) => {
-        let newRecipe = JSON.parse(JSON.stringify(this.state.recipe))
-        newRecipe.image = event.target.value
-
-        this.setState({
-            recipe: newRecipe
-        })
+        const reader = new FileReader()
+        reader.readAsDataURL(event.target.files[0])
+        reader.onloadend = () => {
+            this.setState({
+                imageSource: reader.result
+            })
+        }
     }
+
     handleStepsChange = (event) => {
         let newRecipe = JSON.parse(JSON.stringify(this.state.recipe))
         newRecipe.steps = event.target.value
@@ -76,7 +96,7 @@ export default class UpdateRecipe extends React.Component {
 
     handleIngredientsChange = (event) => {
         let newRecipe = JSON.parse(JSON.stringify(this.state.recipe))
-        newRecipe.ingredients = event.target.value
+        newRecipe.ingredientText = event.target.value
 
         this.setState({
             recipe: newRecipe
@@ -109,8 +129,15 @@ export default class UpdateRecipe extends React.Component {
                 </div>
             )
         }
+        if (!this.props.loggedInUser) {
+            return (
+                <div className="text-center">
+                    <p>Please sign in.</p>
+                </div>
+            )
+        }
 
-        const { title, description, image, steps, type, ingredients, number_of_portions } = this.state.recipe
+        const { title, description, steps, type, number_of_portions, ingredientText } = this.state.recipe
 
         return (
             <>
@@ -123,13 +150,14 @@ export default class UpdateRecipe extends React.Component {
                             <input type="text" name='description' class="form-control" onChange={this.handleDescriptionChange} value={description} />
                         </div>
                         <div class="form-group">
+                            <img src={this.state.imageSource} alt="recipe-img" />
                             <input type="file" name='image' class="form-control" onChange={this.handleImageChange} />
                         </div>
                         <div class="form-group">
                             <textarea class="form-control" name='steps' rows="5" onChange={this.handleStepsChange} value={steps}></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="text" name='ingredients' class="form-control" onChange={this.handleIngredientsChange} value={ingredients} />
+                            <input type="text" name='ingredients' class="form-control" onChange={this.handleIngredientsChange} value={ingredientText} />
                         </div>
                         <div className='type-portion-div'>
                             <select name='type' className='select-type' value={type} onChange={this.handleTypeChange}>
