@@ -215,6 +215,7 @@ class App extends React.Component {
                     <Recipes
                       filteredRecipes={this.filterRecipes()}
                       onAddToMealplan={this.handleAddToMealplan}
+                      showAddButton={false}
                       {...routeProps} />
                   </div>
                 </>
@@ -293,12 +294,12 @@ class App extends React.Component {
             <Route path='/my-recipes' render={(routeProps) => {
               console.log(loggedInUser)
               return (
-                <>
+                <div className='container'>
                 <MyRecipes
                   loggedInUser={loggedInUser}
                   {...routeProps}
                 />
-                </>
+                </div>
               )
             }} />
           </Switch>

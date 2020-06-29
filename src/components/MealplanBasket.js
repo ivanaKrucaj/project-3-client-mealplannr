@@ -9,17 +9,18 @@ export default function MealplanBasket(props) {
     }
 
     return (
-        <>
-            <h1>Mealplan Basket</h1>
-            <form onSubmit={props.onSaveMealplan}>
-                <input type='text' name='mealplanName' placeholder='Mealplan name' />
-                <button type='submit' className='btn btn-lg btn-info'>Save mealplan</button>
+        <div className='mealplan-basket-div container'>
+            <h1 className='mealplan-basket-title'>Mealplan Basket</h1>
+            <form onSubmit={props.onSaveMealplan} className='mealplan-name-form'>
+                <input type='text' className='mealplan-input' name='mealplanName' placeholder='Mealplan name' />
+                <button type='submit' className='btn save-mealplan-btn'>Save mealplan</button>
             </form>
+            <div className='home-recipes'>
             {
                 props.mealplanBasket.map((recipe, index) => {
                     return (
                         <>
-                            <div class="card" style={{ width: '18rem' }} key={index}>
+                            <div class="card basket-card" style={{ width: '18rem' }} key={index}>
                                 <Link to={`/recipe/${recipe._id}`} >
                                     <img src={recipe.image} class="card-img-top" alt="..." />
                                     <div class="card-body">
@@ -31,6 +32,7 @@ export default function MealplanBasket(props) {
                         </>)
                 })
             }
-        </>
+            </div>
+        </div>
     )
 }

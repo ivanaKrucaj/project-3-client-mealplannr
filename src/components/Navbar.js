@@ -5,10 +5,7 @@ import FontAwesome from 'react-fontawesome';
 
 export default function Navbar(props) {
     return (
-        <div className='intro-div'>
-            <div>
-                <h1>Mealplannr</h1>
-            </div>
+        <div className='intro-div fixed-top'>
             <div className='my-nav'>
                 <nav class="navbar navbar-expand my-navbar">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,8 +18,6 @@ export default function Navbar(props) {
                                     <FontAwesome
                                         class="fa fa-home"
                                         name="home"
-                                        size='2x'
-                                        style={{ color: 'white', padding: '0 20px 0 0' }}
                                     />
                                 </Link>
                             </li>
@@ -31,18 +26,17 @@ export default function Navbar(props) {
                                     <FontAwesome
                                         class="fa fa-shopping-basket"
                                         name="shopping-basket"
-                                        size='2x'
-                                        style={{ color: 'white', padding: '0 20px 0 0' }}
                                     />
                                 </Link>
+                            </li>
+                            <li>
+                            <h1 className='navbar-title'>Mealplannr</h1>
                             </li>
                             <li class="nav-item">
                                 <Link to='/create-recipe' class="nav-link">
                                     <FontAwesome
-                                        class="fa fa-plus-circle"
+                                        class="fa fa-plus-circle my-fa"
                                         name="plus-circle"
-                                        size='2x'
-                                        style={{ color: 'white', padding: '0 20px 0 0' }}
                                     />
                                 </Link>
                             </li>
@@ -51,8 +45,6 @@ export default function Navbar(props) {
                                     <FontAwesome
                                         class="fa fa-user"
                                         name="user"
-                                        size='2x'
-                                        style={{ color: 'white' }}
                                     />
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

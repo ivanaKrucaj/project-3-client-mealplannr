@@ -6,15 +6,67 @@
 .type-portion-div {
     display: flex;
     justify-content: space-between;
+    align-content: center;
 }
 
 .select-type {
-    position: relative;
-    background-color: white;
+    border: 1px solid #e1e1e1;
+    border-width: 0 0 2px 0;
+    padding: 10px 30px;
+}
+
+.portions-input {
+    display: inline-block;
+    width: 140px;
+}
+
+.create-recipe-div {
+    margin-top: 10%;
+}
+
+.create-form-input, .create-file-input, .create-ingredient-input, .portions-input {
+    border: 1px solid #e1e1e1;
+    border-width: 0 0 2px 0;
+    padding: 20px 10px;
+}
+
+.create-file-input {
+    padding: 30px 10px;
+    margin-bottom: 30px;
+}
+
+.create-ingredient-input{
+    margin: 40px 0;
+}
+
+.create-steps-input {
+    border: 1px solid #e1e1e1;
+    border-width: 0 0 2px 0;
+}
+
+.submit-form-bnt-div {
+    margin: 10% 0;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 19px;
+    font-weight: 700;
 }
 
 @media (max-width: 480px){
     .recipe-form {
         width: 100%;
+    }
+
+    .create-title {
+        font-size: 30px;
+        font-weight: 800;
+    }
+
+    .submit-btn {
+        font-size: 15px;
+        font-weight: 800;
     }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
-import config from '../config'
+import config from '../config';
 
 export default class MyRecipes extends React.Component {
 
@@ -16,7 +16,7 @@ export default class MyRecipes extends React.Component {
     }
 
     getRecipes = () => {
-        axios.get('http://localhost:5000/api/my-recipes', { withCredentials: true })
+        axios.get(`${config.API_URL}/my-recipes`, { withCredentials: true })
         .then((res) => {
             this.setState({
                 recipes: res.data,
@@ -57,6 +57,7 @@ export default class MyRecipes extends React.Component {
         }
 
         return (
+            // <Recipes filteredRecipes={this.state.recipes}/>
             <>
                 {
                     this.state.recipes.map((recipe, index) => {

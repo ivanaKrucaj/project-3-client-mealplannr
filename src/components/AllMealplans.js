@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import config from '../config';
 import { Link } from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 
 export default class AllMealplans extends React.Component {
 
@@ -41,11 +42,11 @@ export default class AllMealplans extends React.Component {
         let mealplanInput = event.target.value
 
         let newMealplans = this.state.mealplans.filter((mealplan) => {
-          return mealplan.title.toLowerCase().includes(mealplanInput.toLowerCase())
+            return mealplan.title.toLowerCase().includes(mealplanInput.toLowerCase())
         })
-    
+
         this.setState({
-          filteredMealplans: newMealplans
+            filteredMealplans: newMealplans
         })
     }
 
@@ -58,28 +59,43 @@ export default class AllMealplans extends React.Component {
             )
         } else {
             return (
-                <>
-                    <p>All Mealplans</p>
-                    <input onChange={this.filterMealplan}/>
-                    {
-                        this.state.filteredMealplans.map((mealplan, index) => {
-                            return (
-                                <>
-
-                                    <div key={index} class="card" style={{ width: '18rem' }}>
+                <div className='mealplans-page-div'>
+                    <div className='mealplan-header'>
+                        <h1 className='mealplan-basket-title'>My Mealplans</h1>
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input is-rounded" name='recipe' type="text" onChange={this.filterMealplan} placeholder='Search' />
+                                <span class="icon is-left">
+                                    <FontAwesome
+                                        class="fa fa-search"
+                                        name="search"
+                                        size='1x'
+                                        style={{ color: 'lightgrey' }}
+                                    />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='all-mealplans-div'>
+                        {
+                            this.state.filteredMealplans.map((mealplan, index) => {
+                                return (
+                                    <div key={index} class="card recipe-card" style={{ width: '18rem' }}>
                                         <Link to={`/mealplan/${mealplan._id}`}>
                                             <img src={mealplan.recipes[0].image} class="card-img-top" alt="recipe-img" />
-                                            <div class="card-body">
-                                                <h5 class="card-title">{mealplan.title}</h5>
-                                            </div>
                                         </Link>
+                                        <div class="card-body">
+                                            <Link to={`/mealplan/${mealplan._id}`}>
+                                                <h5 class="card-title">{mealplan.title}</h5>
+                                            </Link>
+                                        </div>
                                         <button className='btn btn-outline-danger' onClick={() => { this.deleteMealplan(mealplan._id) }}>Delete</button>
                                     </div>
-                                </>
-                            )
-                        })
-                    }
-                </>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
             )
         }
 

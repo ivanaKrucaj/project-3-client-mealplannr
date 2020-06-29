@@ -20,6 +20,14 @@ h1 {
   margin: 5px;
 }
 
+.recipe-card {
+    margin: 20px;
+}
+
+.recipe-card:hover {
+    opacity: 0.7;
+}
+
 .card-title {
     color: #212121;
     font-size: 18px;

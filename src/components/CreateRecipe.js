@@ -1,11 +1,9 @@
 import React from 'react';
 import './CreateRecipe.css';
-// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import config from '../config'
 
 export default class CreateRecipe extends React.Component {
-
 
     // create recipe via form:
     handleCreateRecipe = (event) => {
@@ -54,26 +52,26 @@ export default class CreateRecipe extends React.Component {
         }
 
         return (
-            <>
-                <h1>Create recipe</h1>
+            <div className='create-recipe-div'>
+                <h1 className='create-title'>Create recipe</h1>
                 <div className='recipe-form'>
                     <form onSubmit={this.handleCreateRecipe}>
                         <div class="form-group">
-                            <input type="text" name='title' class="form-control" placeholder="Title" />
+                            <input type="text" name='title' class="form-control create-form-input" placeholder="Title" />
                         </div>
-                        <div class="form-group">
+                        {/* <div class="form-group">
                             <input type="text" name='description' class="form-control" placeholder="Description" />
+                        </div> */}
+                        <div class="form-group">
+                            <input type="file" name='image' class="form-control create-file-input" />
                         </div>
                         <div class="form-group">
-                            <input type="file" name='image' class="form-control" />
+                            <textarea class="form-control create-steps-input" name='steps' rows="5" placeholder='Steps'></textarea>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name='steps' rows="5" placeholder='Steps'></textarea>
+                            <input type="text" name='ingredients' class="form-control create-ingredient-input" placeholder="Ingredients" />
                         </div>
-                        <div class="form-group">
-                            <input type="text" name='ingredients' class="form-control" placeholder="Ingredients" />
-                        </div>
-                        <div className='type-portion-div'>
+                        <div className='form-group type-portion-div'>
                             <select name='type' className='select-type'>
                                 <option disabled selected hidden>Meal type</option>
                                 <option>Breakfast</option>
@@ -81,16 +79,14 @@ export default class CreateRecipe extends React.Component {
                                 <option>Dinner</option>
                                 <option>Snack</option>
                             </select>
-                            <div class="form-group">
-                                <input type="number" min='0' name='portions' class="form-control" placeholder="Number of portions" />
-                            </div>
+                            <input type="number" min='0' name='portions' class="form-control portions-input" placeholder="Portions" />
                         </div>
-                        <div>
-                            <button type="submit" class="btn btn-success">Submit</button>
+                        <div className='submit-form-bnt-div'>
+                            <button type="submit" class="btn btn-success submit-btn">Submit recipe</button>
                         </div>
                     </form>
                 </div>
-            </>
+            </div>
         )
     }
 }
