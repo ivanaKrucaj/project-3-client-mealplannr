@@ -41,18 +41,17 @@ export default function Navbar(props) {
                                 </Link>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <Link class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <FontAwesome
                                         class="fa fa-user"
                                         name="user"
                                     />
-                                </a>
+                                </Link>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <Link to='/mealplans' class="dropdown-item">My Mealplans</Link>
                                     <Link to='/my-recipes' class="dropdown-item">My Recipes</Link>
-                                    <a class="dropdown-item" href="#">Favorites</a>
                                     <hr />
-                                    <a class="dropdown-item" onClick={props.onLogout}>Logout</a>
+                                    <Link class="dropdown-item" onClick={props.onLogout}>Logout</Link>
                                 </div>
                             </li>
                         </ul>

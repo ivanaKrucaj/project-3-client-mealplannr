@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import 'bulma/css/bulma.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -169,7 +169,7 @@ class App extends React.Component {
   }
 
   filterRecipes = () => {
-     return this.state.recipes.filter((recipe) => {
+    return this.state.recipes.filter((recipe) => {
       return recipe.title.toLowerCase().includes(this.state.filterText.toLowerCase())
     })
   }
@@ -200,6 +200,9 @@ class App extends React.Component {
         </div>
         <div className='home-div'>
           <Switch>
+            <Route exact path='/'>
+              <Redirect to='/home' />
+            </Route>
             <Route exact path='/home' render={(routeProps) => {
               return (
                 <>
@@ -243,11 +246,11 @@ class App extends React.Component {
             }} />
             <Route path='/recipe/:recipe_id' render={(routeProps) => {
               return (
-              <div className='container'>
-                <Recipe
-                  {...routeProps}
-                />
-              </div>)
+                <div className='container'>
+                  <Recipe
+                    {...routeProps}
+                  />
+                </div>)
             }} />
             <Route path='/login' render={(routeProps) => {
               return <div className='forms container'>
@@ -296,10 +299,10 @@ class App extends React.Component {
               console.log(loggedInUser)
               return (
                 <div className='container'>
-                <MyRecipes
-                  loggedInUser={loggedInUser}
-                  {...routeProps}
-                />
+                  <MyRecipes
+                    loggedInUser={loggedInUser}
+                    {...routeProps}
+                  />
                 </div>
               )
             }} />

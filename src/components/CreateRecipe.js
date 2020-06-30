@@ -9,7 +9,6 @@ export default class CreateRecipe extends React.Component {
     handleCreateRecipe = (event) => {
         event.preventDefault();
         let title = event.target.title.value;
-        let description = event.target.description.value;
         let steps = event.target.steps.value;
         let ingredients = event.target.ingredients.value;
         let type = event.target.type.value;
@@ -23,7 +22,6 @@ export default class CreateRecipe extends React.Component {
             .then((res) => {
                 axios.post(`${config.API_URL}/recipe`, {
                     title: title,
-                    description: description,
                     steps: steps,
                     ingredients: ingredients,
                     type: type,
@@ -59,9 +57,6 @@ export default class CreateRecipe extends React.Component {
                         <div class="form-group">
                             <input type="text" name='title' class="form-control create-form-input" placeholder="Title" />
                         </div>
-                        {/* <div class="form-group">
-                            <input type="text" name='description' class="form-control" placeholder="Description" />
-                        </div> */}
                         <div class="form-group">
                             <input type="file" name='image' class="form-control create-file-input" />
                         </div>
