@@ -32,7 +32,7 @@ class App extends React.Component {
   }
 
   getRecipes = () => {
-    axios.get('http://localhost:5000/api/recipes')
+    axios.get(`${config.API_URL}/recipes`)
       .then((res) => {
         this.setState({
           recipes: res.data,
@@ -242,7 +242,8 @@ class App extends React.Component {
               )
             }} />
             <Route path='/recipe/:recipe_id' render={(routeProps) => {
-              return (<div className='container'>
+              return (
+              <div className='container'>
                 <Recipe
                   {...routeProps}
                 />

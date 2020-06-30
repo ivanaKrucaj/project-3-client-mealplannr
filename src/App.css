@@ -73,10 +73,6 @@
   color: #212121;
 }
 
-.recipes-home {
-  display: flex;
-}
-
 .header-img {
   height: 300px;
 }
@@ -130,11 +126,11 @@
   align-items: center;
 }
 
-
 .all-mealplans-div {
   display: flex;
   justify-content: space-evenly;
 }
+
 
 @media (max-width: 480px){
   .forms {

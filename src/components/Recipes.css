@@ -11,15 +11,6 @@ h1 {
     padding-top: 50px;
 }
 
-.edit-btn {
-  background-color: #e9da5d;
-  padding: 10px;
-  border: 1px solid #e9da5d;
-  border-radius: 50%;
-  font-size: 20px;
-  margin: 5px;
-}
-
 .recipe-card {
     margin: 20px;
 }

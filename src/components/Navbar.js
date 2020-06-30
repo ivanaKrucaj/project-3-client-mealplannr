@@ -35,7 +35,7 @@ export default function Navbar(props) {
                             <li class="nav-item">
                                 <Link to='/create-recipe' class="nav-link">
                                     <FontAwesome
-                                        class="fa fa-plus-circle my-fa"
+                                        class="fa fa-plus-circle"
                                         name="plus-circle"
                                     />
                                 </Link>

@@ -1,6 +1,8 @@
 import React from 'react';
 import config from '../config'
 import axios from 'axios';
+import './MealplanDetail.css';
+import { Link } from 'react-router-dom';
 
 export default class MealplanDetails extends React.Component {
 
@@ -14,16 +16,16 @@ export default class MealplanDetails extends React.Component {
 
     loadMealplan = (id) => {
         axios.get(`${config.API_URL}/mealplan/${id}`, { withCredentials: true })
-        .then((res) => {
-            this.setState({
-                // adds mealplan to state:
-                mealplan: res.data,
-                loading: false
+            .then((res) => {
+                this.setState({
+                    // adds mealplan to state:
+                    mealplan: res.data,
+                    loading: false
+                })
             })
-        })
-        .catch((err) => {
-            console.log('Something went wrong', err)
-        })
+            .catch((err) => {
+                console.log('Something went wrong', err)
+            })
     }
 
     updateShoppingList = (id) => {
@@ -36,9 +38,9 @@ export default class MealplanDetails extends React.Component {
             return item
         })
 
-        axios.put(`${config.API_URL}/mealplan/${this.state.mealplan._id}/shopping_list`, { 
+        axios.put(`${config.API_URL}/mealplan/${this.state.mealplan._id}/shopping_list`, {
             shoppingList: updatedShoppingList
-        } ,{ withCredentials: true })
+        }, { withCredentials: true })
             .then((res) => {
                 this.setState({
                     mealplan: res.data
@@ -58,18 +60,51 @@ export default class MealplanDetails extends React.Component {
             return (
                 <>
                     <p>{this.state.mealplan.title}</p>
-                    {
-                        this.state.mealplan.shoppingList.map((listItem, index) => {
-                            return (
-                                <ul>
-                                    <li key={index}>
-                                        <input type='checkbox' checked={listItem.bought} onChange={() => { this.updateShoppingList(listItem._id) }} />
-                                        <p>{listItem.quantity}g  {listItem.title}</p>
-                                    </li>
-                                </ul>
-                            )
-                        })
-                    }
+                    <div class="row mealplan-tab">
+                        <div class="col-3">
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active mealplan-nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Shopping List</a>
+                                <a class="nav-link mealplan-nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Recipes</a>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <ul className='shoppinglist-container'>
+                                        {
+                                            this.state.mealplan.shoppingList.map((listItem, index) => {
+                                                return (
+                                                    <li key={index}>
+                                                        <input type='checkbox' checked={listItem.bought} onChange={() => { this.updateShoppingList(listItem._id) }} />
+                                                        <p>{listItem.quantity}g  {listItem.title}</p>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                    <div className='recipes-tab'>
+                                        {
+                                            this.state.mealplan.recipes.map((recipe, index) => {
+                                                return (
+                                                    <Link to={`/recipe/${recipe._id}`} className='mealplan-recipe-link'>
+                                                        <div class="card mealplan-tab-recipe" style={{ width: "18rem" }} key={index}>
+                                                            <img src={recipe.image} class="card-img-top" alt="recipe-img" />
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">{recipe.title}</h5>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </>
             )
         }

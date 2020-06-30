@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import FontAwesome from 'react-fontawesome';
 import config from '../config';
+import FontAwesome from 'react-fontawesome';
+import './MyRecipes.css';
 
 export default class MyRecipes extends React.Component {
 
@@ -17,22 +18,22 @@ export default class MyRecipes extends React.Component {
 
     getRecipes = () => {
         axios.get(`${config.API_URL}/my-recipes`, { withCredentials: true })
-        .then((res) => {
-            this.setState({
-                recipes: res.data,
-                loading: false
+            .then((res) => {
+                this.setState({
+                    recipes: res.data,
+                    loading: false
+                })
             })
-        })
-        .catch((err) => {
-            console.log(err)
-            if (err.response.status === 401) {
-                this.props.history.push('/login')
-            }
-        })
+            .catch((err) => {
+                console.log(err)
+                if (err.response.status === 401) {
+                    this.props.history.push('/login')
+                }
+            })
     }
 
     deleteRecipe = (id) => {
-        axios.delete(`${config.API_URL}/recipe/${id}`, {withCredentials: true})
+        axios.delete(`${config.API_URL}/recipe/${id}`, { withCredentials: true })
             .then((res) => {
                 this.getRecipes()
             })
@@ -59,40 +60,43 @@ export default class MyRecipes extends React.Component {
         return (
             // <Recipes filteredRecipes={this.state.recipes}/>
             <>
-                {
-                    this.state.recipes.map((recipe, index) => {
-                        return (
-                            <>
-                                <div class="card" style={{ width: "18rem" }} key={index}>
-                                    <Link to={`/recipe/${recipe._id}`}>
-                                        <img src={recipe.image} class="card-img-top" alt="recipe-img" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">{recipe.title}</h5>
-                                        </div>
-                                    </Link>
-                                    <button class="edit-btn" type='submit'>
-                                        <Link to={`/edit-recipe/${recipe._id}`} style={{ color: 'white' }}>
-                                            <FontAwesome
-                                                class="fa fa-edit"
-                                                name="edit"
-                                                size='2px'
-                                                style={{ color: 'white' }}
-                                            />
+            <div className='my-recipes-header'>
+                <h1 className='mealplan-basket-title'>My recipes</h1>
+            </div>
+                <div className='my-recipes-div'>
+                    {
+                        this.state.recipes.map((recipe, index) => {
+                            return (
+                                <>
+                                    <div class="card my-recipes-card" style={{ width: "18rem" }} key={index}>
+                                        <Link to={`/recipe/${recipe._id}`} className='my-recipes-recipe-title'>
+                                            <img src={recipe.image} class="card-img-top" alt="recipe-img" />
+                                            <div class="card-body">
+                                                <h5 class="card-title">{recipe.title}</h5>
+                                            </div>
                                         </Link>
-                                    </button>
-                                    <button class="edit-btn" type='submit' onClick={() => {this.deleteRecipe(recipe._id)}}>Delete
+                                        <button class="btn recipe-btn" type='submit'>
+                                            <Link to={`/edit-recipe/${recipe._id}`} style={{ color: 'white' }}>
+                                                <FontAwesome
+                                                    class="fa fa-edit"
+                                                    name="edit"
+                                                    style={{ color: 'white' }}
+                                                />
+                                            </Link>
+                                        </button>
+                                        <button class="btn recipe-btn" type='submit' onClick={() => { this.deleteRecipe(recipe._id) }}>
                                             <FontAwesome
-                                                class="fa fa-delete"
-                                                name="delete"
-                                                size='2px'
+                                                class="fa fa-trash"
+                                                name="trash"
                                                 style={{ color: 'white' }}
                                             />
-                                    </button>
-                                </div>
-                            </>
-                        )
-                    })
-                }
+                                        </button>
+                                    </div>
+                                </>
+                            )
+                        })
+                    }
+                </div>
             </>
         )
     }
