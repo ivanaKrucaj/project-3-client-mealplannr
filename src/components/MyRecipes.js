@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import config from '../config';
-import FontAwesome from 'react-fontawesome';
 import './CSS/MyRecipes.css';
 
 export default class MyRecipes extends React.Component {

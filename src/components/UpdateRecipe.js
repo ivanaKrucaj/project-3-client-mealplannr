@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import config from '../config'
+import config from '../config';
 
 export default class UpdateRecipe extends React.Component {
 
@@ -41,7 +41,6 @@ export default class UpdateRecipe extends React.Component {
     updateRecipe = (id, image_url) => {
         axios.put(`${config.API_URL}/recipe/${id}`, {
             title: this.state.recipe.title,
-            description: this.state.recipe.description,
             image: image_url,
             steps: this.state.recipe.steps,
             ingredients: this.state.recipe.ingredientText,
@@ -59,16 +58,6 @@ export default class UpdateRecipe extends React.Component {
     handleTitleChange = (event) => {
         let newRecipe = JSON.parse(JSON.stringify(this.state.recipe))
         newRecipe.title = event.target.value
-
-        this.setState({
-            recipe: newRecipe
-        })
-    }
-
-
-    handleDescriptionChange = (event) => {
-        let newRecipe = JSON.parse(JSON.stringify(this.state.recipe))
-        newRecipe.description = event.target.value
 
         this.setState({
             recipe: newRecipe
@@ -137,44 +126,44 @@ export default class UpdateRecipe extends React.Component {
             )
         }
 
-        const { title, description, steps, type, number_of_portions, ingredientText } = this.state.recipe
+        const { title, steps, type, number_of_portions, ingredientText } = this.state.recipe
 
         return (
             <>
-                <div className='recipe-form'>
-                    <form onSubmit={this.handleRecipeUpdate}>
-                        <div class="form-group">
-                            <input type="text" name='title' class="form-control" onChange={this.handleTitleChange} value={title} />
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name='description' class="form-control" onChange={this.handleDescriptionChange} value={description} />
-                        </div>
-                        <div class="form-group">
-                            <img src={this.state.imageSource} alt="recipe-img" />
-                            <input type="file" name='image' class="form-control" onChange={this.handleImageChange} />
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name='steps' rows="5" onChange={this.handleStepsChange} value={steps}></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name='ingredients' class="form-control" onChange={this.handleIngredientsChange} value={ingredientText} />
-                        </div>
-                        <div className='type-portion-div'>
-                            <select name='type' className='select-type' value={type} onChange={this.handleTypeChange}>
-                                <option disabled selected hidden>Meal type</option>
-                                <option>Breakfast</option>
-                                <option>Lunch</option>
-                                <option>Dinner</option>
-                                <option>Snack</option>
-                            </select>
+                <div className='recipe-form edit-recipe-form'>
+                    <h1 className='recipes-title'>Edit your recipe</h1>
+                    <div className='recipe-form'>
+                        <form onSubmit={this.handleRecipeUpdate}>
                             <div class="form-group">
-                                <input type="number" min='0' name='portions' class="form-control" onChange={this.handlePortionsChange} value={number_of_portions} />
+                                <input type="text" name='title' class="form-control create-form-input" onChange={this.handleTitleChange} value={title} />
                             </div>
-                        </div>
-                        <div>
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <img src={this.state.imageSource} alt="recipe-img" />
+                                <input type="file" name='image' class="form-control create-file-input" onChange={this.handleImageChange} />
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control create-steps-input" name='steps' rows="5" onChange={this.handleStepsChange} value={steps}></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name='ingredients' class="form-control create-ingredient-input" onChange={this.handleIngredientsChange} value={ingredientText} />
+                            </div>
+                            <div className='type-portion-div type-portion-div'>
+                                <select name='type' className='select-type' value={type} onChange={this.handleTypeChange}>
+                                    <option disabled selected hidden>Meal type</option>
+                                    <option>Breakfast</option>
+                                    <option>Lunch</option>
+                                    <option>Dinner</option>
+                                    <option>Snack</option>
+                                </select>
+                                <div class="form-group">
+                                    <input type="number" min='0' name='portions' class="form-control portions-input" onChange={this.handlePortionsChange} value={number_of_portions} />
+                                </div>
+                            </div>
+                            <div className='submit-form-bnt-div'>
+                                <button type="submit" class="btn submit-btn">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </>
         )

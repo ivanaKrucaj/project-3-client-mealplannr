@@ -3,6 +3,11 @@
     margin: 50px auto 0;
 }
 
+.edit-recipe-form {
+    padding: 50px 0 40px;
+    width: 80%;
+}
+
 .type-portion-div {
     display: flex;
     justify-content: space-between;
@@ -59,7 +64,7 @@
     border-radius: 25px;
     font-size: 19px;
     font-weight: 700;
-    background-color: #78b2bd;
+    background-color: #83bd94;
     color: white;
     margin-bottom: 30px;
 }

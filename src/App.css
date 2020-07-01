@@ -92,11 +92,10 @@ body {
 .recipes-title {
   padding: 20px 0;
   font-size: 47px;
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
-  color: #78b2bd;
+  color: black;
   margin: 20px 0 0;
-  text-shadow: 0 1px black;
 }
 
 .header-img {
