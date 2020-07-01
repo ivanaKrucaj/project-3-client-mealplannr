@@ -61,7 +61,7 @@ export default class AllMealplans extends React.Component {
             return (
                 <div className='mealplans-page-div'>
                     <div className='mealplan-header'>
-                        <h1 className='mealplan-basket-title'>My Mealplans</h1>
+                        <h1 className='recipes-title'>My Mealplans</h1>
                         <div class="field">
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input is-rounded" name='recipe' type="text" onChange={this.filterMealplan} placeholder='Search' />
@@ -89,7 +89,9 @@ export default class AllMealplans extends React.Component {
                                                 <h5 class="card-title">{mealplan.title}</h5>
                                             </Link>
                                         </div>
-                                        <button className='btn btn-outline-danger' onClick={() => { this.deleteMealplan(mealplan._id) }}>Delete</button>
+                                        <div className='delete-div'>
+                                            <button className='btn mealplan-basket-delete' onClick={() => { this.deleteMealplan(mealplan._id) }}>Delete mealplan</button>
+                                        </div>
                                     </div>
                                 )
                             })

@@ -1,5 +1,5 @@
 import React from 'react';
-import './CreateRecipe.css';
+import './CSS/CreateRecipe.css';
 import axios from 'axios';
 import config from '../config'
 
@@ -51,7 +51,7 @@ export default class CreateRecipe extends React.Component {
 
         return (
             <div className='create-recipe-div'>
-                <h1 className='create-title'>Create recipe</h1>
+                <h1 className='recipes-title'>Create recipe</h1>
                 <div className='recipe-form'>
                     <form onSubmit={this.handleCreateRecipe}>
                         <div class="form-group">
@@ -77,7 +77,7 @@ export default class CreateRecipe extends React.Component {
                             <input type="number" min='0' name='portions' class="form-control portions-input" placeholder="Portions" />
                         </div>
                         <div className='submit-form-bnt-div'>
-                            <button type="submit" class="btn btn-success submit-btn">Submit recipe</button>
+                            <button type="submit" class="btn submit-btn">Submit recipe</button>
                         </div>
                     </form>
                 </div>

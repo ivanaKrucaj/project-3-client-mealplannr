@@ -20,7 +20,7 @@ import AllMealplans from './components/AllMealplans';
 import MealplanDetails from './components/MealplanDetails';
 import FilterRecipes from './components/FilterRecipes';
 import UpdateRecipe from './components/UpdateRecipe';
-import MyRecipes from './components/MyRecipes'
+import MyRecipes from './components/MyRecipes';
 
 class App extends React.Component {
 

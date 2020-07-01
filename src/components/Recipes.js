@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Recipes.css';
+import './CSS/Recipes.css';
 
 export default function Recipes(props) {
     return (
@@ -18,7 +18,7 @@ export default function Recipes(props) {
                                         <Link to={`/recipe/${recipe._id}`} className='recipe-title'>
                                             <h5 class="card-title">{recipe.title}</h5>
                                         </Link>
-                                        <button class="btn btn-primary" onClick={(event) => props.onAddToMealplan(event, recipe)}>Add to Mealplan</button>
+                                        <button class="btn add-mealplan-btn" onClick={(event) => props.onAddToMealplan(event, recipe)}>Add to Mealplan</button>
                                     </div>
                                 </div>
                             </>)

@@ -1,0 +1,67 @@
+.mealplan-tab {
+    padding: 150px 60px 60px;
+}
+
+.mealplan-details-tabs {
+    padding: 0 0 0 20px;
+}
+
+.shoppinglist-container {
+    columns: 3 auto;
+    padding: 0 20px 20px 10px;
+}
+
+.mealplan-nav-link {
+    font-weight: 700;
+    background-color: #e9da5d ;
+    margin-bottom: 5px;
+    padding: 15px 20px;
+    font-size: 18px;
+}
+
+.recipes-tab {
+    display: flex;
+    justify-content: space-evenly;
+    /* flex-wrap: wrap; */
+    overflow-x: auto;
+}
+
+.mealplan-tab-recipe:hover {
+    opacity: 0.7;
+}
+
+.mealplan-recipe-link {
+    margin-right: 20px;
+}
+
+.mealplan-recipe-link:hover {
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.shoppinglist-items {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.shoppinglist-items input {
+    position: absolute;
+    top: 8px;
+    left: -20px;
+}
+
+.shoppinglist-item-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+}
+
+.nav-pills .nav-link.active, .nav-pills.show > .nav-link{
+    background-color: #83bd94;
+}
+
+@media (max-width: 480px) {
+    .mealplan-tab {
+        padding: 80px 10px;
+    }
+}

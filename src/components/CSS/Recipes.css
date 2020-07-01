@@ -2,7 +2,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -12,7 +14,11 @@ h1 {
 }
 
 .recipe-card {
-    margin: 20px;
+    margin: 20px;  
+}
+
+.card-body {
+    text-align: center;
 }
 
 .recipe-card:hover {
@@ -30,6 +36,15 @@ h1 {
 
 .recipe-title:hover {
     text-decoration: none;
+}
+
+.add-mealplan-btn {
+    background-color: #78b2bd;
+    color: white;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin: 20px 0 0;
 }
 
 @media (max-width: 480px){

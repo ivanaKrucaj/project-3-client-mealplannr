@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
-import FontAwesome from 'react-fontawesome';
+import './CSS/Navbar.css';
 
 export default function Navbar(props) {
     return (
@@ -15,37 +14,22 @@ export default function Navbar(props) {
                         <ul class="navbar-nav nav-list">
                             <li class="nav-item">
                                 <Link to='/home' class="nav-link">
-                                    <FontAwesome
-                                        class="fa fa-home"
-                                        name="home"
-                                    />
+                                    Home
                                 </Link>
                             </li>
                             <li class="nav-item">
                                 <Link to='/mealplan-basket' class="nav-link">
-                                    <FontAwesome
-                                        class="fa fa-shopping-basket"
-                                        name="shopping-basket"
-                                    />
+                                  Mealplan Basket
                                 </Link>
-                            </li>
-                            <li>
-                            <h1 className='navbar-title'>Mealplannr</h1>
                             </li>
                             <li class="nav-item">
                                 <Link to='/create-recipe' class="nav-link">
-                                    <FontAwesome
-                                        class="fa fa-plus-circle"
-                                        name="plus-circle"
-                                    />
+                                   Create Recipe
                                 </Link>
                             </li>
                             <li class="nav-item dropdown">
                                 <Link class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <FontAwesome
-                                        class="fa fa-user"
-                                        name="user"
-                                    />
+                                    User Account
                                 </Link>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <Link to='/mealplans' class="dropdown-item">My Mealplans</Link>

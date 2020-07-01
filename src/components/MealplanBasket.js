@@ -10,7 +10,7 @@ export default function MealplanBasket(props) {
 
     return (
         <div className='mealplan-basket-div container'>
-            <h1 className='mealplan-basket-title'>Mealplan Basket</h1>
+            <h1 className='recipes-title'>Mealplan Basket</h1>
             <form onSubmit={props.onSaveMealplan} className='mealplan-name-form'>
                 <input type='text' className='mealplan-input' name='mealplanName' placeholder='Mealplan name' />
                 <button type='submit' className='btn save-mealplan-btn'>Save mealplan</button>
@@ -27,7 +27,9 @@ export default function MealplanBasket(props) {
                                         <h5 class="card-title">{recipe.title}</h5>
                                     </div>
                                 </Link>
-                                <button className='btn btn-outline-danger' onClick={() => { props.onDelete(recipe) }}>Delete</button>
+                                <div className='delete-div'>
+                                <button className='btn mealplan-basket-delete' onClick={() => { props.onDelete(recipe) }}>Remove</button>
+                                </div>
                             </div>
                         </>)
                 })

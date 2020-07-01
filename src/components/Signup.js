@@ -1,5 +1,5 @@
 import React from 'react';
-import './Login.css'
+import './CSS/Login.css'
 
 export default function Signup(props){
 
@@ -7,7 +7,7 @@ export default function Signup(props){
         <>
         <form class="form-signin" onSubmit={props.onSignup}>
                 <div class="text-center mb-4">
-                    <h1 class="h3 mb-3 font-weight-normal">Not a member yet?</h1>
+                    <h1 class="h3 mb-3 login-title">Not a member yet?</h1>
                 </div>
 
                 <div class="form-label-group">
@@ -20,12 +20,6 @@ export default function Signup(props){
 
                 <div class="form-label-group">
                     <input type="password" name='password' class="form-control form-input" placeholder="Password" required="" />
-                </div>
-
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me" /> Remember me
-                    </label>
                 </div>
                 <div>
                     <button class="btn btn-lg btn-signup btn-trans" type="submit">Create an account</button>

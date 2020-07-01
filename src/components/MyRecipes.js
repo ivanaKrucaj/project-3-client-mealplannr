@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import config from '../config';
 import FontAwesome from 'react-fontawesome';
-import './MyRecipes.css';
+import './CSS/MyRecipes.css';
 
 export default class MyRecipes extends React.Component {
 
@@ -59,9 +59,9 @@ export default class MyRecipes extends React.Component {
 
         return (
             // <Recipes filteredRecipes={this.state.recipes}/>
-            <>
+            <div className='my-recipes-page'>
             <div className='my-recipes-header'>
-                <h1 className='mealplan-basket-title'>My recipes</h1>
+                <h1 className='recipes-title'>My recipes</h1>
             </div>
                 <div className='my-recipes-div'>
                     {
@@ -76,28 +76,16 @@ export default class MyRecipes extends React.Component {
                                             </div>
                                         </Link>
                                         <button class="btn recipe-btn" type='submit'>
-                                            <Link to={`/edit-recipe/${recipe._id}`} style={{ color: 'white' }}>
-                                                <FontAwesome
-                                                    class="fa fa-edit"
-                                                    name="edit"
-                                                    style={{ color: 'white' }}
-                                                />
-                                            </Link>
+                                            <Link to={`/edit-recipe/${recipe._id}`} style={{ color: 'black' }}>Edit</Link>
                                         </button>
-                                        <button class="btn recipe-btn" type='submit' onClick={() => { this.deleteRecipe(recipe._id) }}>
-                                            <FontAwesome
-                                                class="fa fa-trash"
-                                                name="trash"
-                                                style={{ color: 'white' }}
-                                            />
-                                        </button>
+                                        <button class="btn recipe-btn-delete" type='submit' onClick={() => { this.deleteRecipe(recipe._id) }}>Delete</button>
                                     </div>
                                 </>
                             )
                         })
                     }
                 </div>
-            </>
+            </div>
         )
     }
 }

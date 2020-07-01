@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import config from '../config';
-import './Recipe.css';
+import './CSS/Recipe.css';
 import FontAwesome from 'react-fontawesome';
 
 export default class Recipe extends React.Component {
@@ -69,8 +69,10 @@ export default class Recipe extends React.Component {
                     </div>
                     <div className='col-6 title-div'>
                         <h1 className='recipe-title'>{title}</h1>
-                        <p>{type}</p>
-                        <p>Serves  <b>{number_of_portions}</b></p>
+                        <div className='recipe-info-div'>
+                            <p className='recipe-type'>{type}</p>
+                            <p>Serves  <b>{number_of_portions}</b></p>
+                        </div>
                     </div>
                 </div>
                 <div className='col-12 recipe-detail-tabs'>
@@ -103,19 +105,19 @@ export default class Recipe extends React.Component {
                                     <tbody>
                                         <tr>
                                             <td>Calories</td>
-                                            <td>{calories.toFixed(2)} kcal</td>
+                                            <td>{calories.toFixed(1)} kcal</td>
                                         </tr>
                                         <tr>
                                             <td>Fat</td>
-                                            <td>{fat.toFixed(2)} g</td>
+                                            <td>{fat.toFixed(1)} g</td>
                                         </tr>
                                         <tr>
                                             <td>Protein</td>
-                                            <td>{protein.toFixed(2)} g</td>
+                                            <td>{protein.toFixed(1)} g</td>
                                         </tr>
                                         <tr>
                                             <td>Carbs</td>
-                                            <td>{carbs.toFixed(2)} g</td>
+                                            <td>{carbs.toFixed(1)} g</td>
                                         </tr>
                                     </tbody>
                                 </table>

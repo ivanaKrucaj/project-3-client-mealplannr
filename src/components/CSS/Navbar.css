@@ -1,0 +1,62 @@
+.intro-div {
+    display: flex;
+    justify-content: space-around;
+    background-color: #83bd94;
+    padding: 10px 0;
+}
+
+.my-nav {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    align-content:  center;
+}
+
+.nav-link {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.nav-link:hover {
+    color: black;
+}
+
+.nav-item {
+    padding-right: 30px;
+}
+
+.my-navbar {
+    padding: 0;
+    background-color: #83bd94;
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    align-content: space-around;
+}
+
+.nav-list {
+    padding: 20px 0 5px;
+}
+
+@media (max-width: 480px) {
+    .nav-list {
+        border: none;
+        padding: 10px 0 0;
+        margin: 0;
+    }
+
+    .nav-item {
+        padding-right: 0;
+    }
+
+    .nav-link {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 0;
+    }
+}

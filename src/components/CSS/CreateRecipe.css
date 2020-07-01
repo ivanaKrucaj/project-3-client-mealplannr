@@ -21,7 +21,7 @@
 }
 
 .create-recipe-div {
-    margin-top: 10%;
+    padding-top: 150px;
 }
 
 .create-form-input, .create-file-input, .create-ingredient-input, .portions-input {
@@ -33,6 +33,12 @@
 .create-file-input {
     padding: 30px 10px;
     margin-bottom: 30px;
+    /* width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1; */
 }
 
 .create-ingredient-input{
@@ -50,12 +56,19 @@
 
 .submit-btn {
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 25px;
     font-size: 19px;
     font-weight: 700;
+    background-color: #78b2bd;
+    color: white;
+    margin-bottom: 30px;
 }
 
 @media (max-width: 480px){
+    .create-recipe-div {
+        padding-top: 100px;
+    }
+
     .recipe-form {
         width: 100%;
     }

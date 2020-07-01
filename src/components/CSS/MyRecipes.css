@@ -1,0 +1,58 @@
+/* My recipes */
+.my-recipes-page {
+  padding: 50px 0 20px;
+}
+
+.my-recipes-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.my-recipes-header {
+  margin: 120px 0 50px;
+}
+
+.my-recipes-card {
+  display: inline;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.my-recipes-card:hover {
+  opacity: 0.7;
+}
+
+.recipe-btn,
+.recipe-btn-delete {
+  background-color: #e9da5d;
+  padding: 7px 25px;
+  border-radius: 25px;
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0 10px 15px 0;
+}
+
+.recipe-btn-delete {
+  background-color: #c93b14;
+  color: white;
+}
+
+.my-recipes-recipe-title:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .my-recipes-page {
+    padding: 20px 0;
+  }
+  .my-recipes-div {
+    display: flex;
+    justify-content: center;
+  }
+
+  .recipe-btn {
+    font-size: 20px;
+  }
+}

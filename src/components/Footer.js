@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import './CSS/Footer.css';
 
 export default function Footer() {
     let footerStyle = {
-        // margin: '40px 0 0',
-        textAlign: 'center'
+        padding: '18px 0 ',
+        textAlign: 'center',
+        backgroundColor: '#e9da5d',
+        margin: '0',
+        fontWeight: '400',
+        fontSize: '13px',
+        margin: '0'
     }
 
     let date = new Date();

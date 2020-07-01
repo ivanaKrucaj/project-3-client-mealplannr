@@ -1,7 +1,7 @@
 import React from 'react';
 import config from '../config'
 import axios from 'axios';
-import './MealplanDetail.css';
+import './CSS/MealplanDetail.css';
 import { Link } from 'react-router-dom';
 
 export default class MealplanDetails extends React.Component {
@@ -67,16 +67,16 @@ export default class MealplanDetails extends React.Component {
                                 <a class="nav-link mealplan-nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Recipes</a>
                             </div>
                         </div>
-                        <div class="col-9">
+                        <div class="col-9 mealplan-details-tabs">
                             <div class="tab-content" id="v-pills-tabContent">
                                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                     <ul className='shoppinglist-container'>
                                         {
                                             this.state.mealplan.shoppingList.map((listItem, index) => {
                                                 return (
-                                                    <li key={index}>
+                                                    <li key={index} className='shoppinglist-items'>
                                                         <input type='checkbox' checked={listItem.bought} onChange={() => { this.updateShoppingList(listItem._id) }} />
-                                                        <p>{listItem.quantity}g  {listItem.title}</p>
+                                                        <p className='shoppinglist-item-text'>{listItem.quantity}g  {listItem.title}</p>
                                                     </li>
                                                 )
                                             })
