@@ -39,8 +39,9 @@ h1 {
 }
 
 .add-mealplan-btn {
-    background-color: #78b2bd;
-    color: white;
+    background-color: #e9da5d;
+    color: black;
+    font-size: 19px;
     font-weight: 700;
     padding: 10px 20px;
     border-radius: 25px;

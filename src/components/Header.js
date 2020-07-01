@@ -14,7 +14,7 @@ export default function Header() {
                         <h1 className='teaser-title'>Quick and Easy Way <br /> to Healthier Life</h1>
                         <p className='teaser-par'>Use our Meal Planning Tool <br /> to Add Recipes to Your Meal Plan.</p>
                         <Link to='/login'>
-                            <button className='login-btn btn btn-lg'>Become a mealplannr</button>
+                            <button className='login-btn btn btn-lg'>Get your meal plan!</button>
                         </Link>
                     </div>
                     <div className='header-img-div col-3'>

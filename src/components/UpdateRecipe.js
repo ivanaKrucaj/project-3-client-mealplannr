@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import config from '../config';
+import { Link } from 'react-router-dom';
 
 export default class UpdateRecipe extends React.Component {
 
@@ -111,61 +112,59 @@ export default class UpdateRecipe extends React.Component {
     }
 
     render() {
-        if (!this.state.recipe) {
+        if (this.state.loading) {
             return (
-                <div class="spinner-border text-warning" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            )
-        }
-        if (!this.props.loggedInUser) {
-            return (
-                <div className="text-center">
-                    <p>Please sign in.</p>
-                </div>
-            )
-        }
-
-        const { title, steps, type, number_of_portions, ingredientText } = this.state.recipe
-
-        return (
-            <>
-                <div className='recipe-form edit-recipe-form'>
-                    <h1 className='recipes-title'>Edit your recipe</h1>
-                    <div className='recipe-form'>
-                        <form onSubmit={this.handleRecipeUpdate}>
-                            <div class="form-group">
-                                <input type="text" name='title' class="form-control create-form-input" onChange={this.handleTitleChange} value={title} />
-                            </div>
-                            <div class="form-group">
-                                <img src={this.state.imageSource} alt="recipe-img" />
-                                <input type="file" name='image' class="form-control create-file-input" onChange={this.handleImageChange} />
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control create-steps-input" name='steps' rows="5" onChange={this.handleStepsChange} value={steps}></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name='ingredients' class="form-control create-ingredient-input" onChange={this.handleIngredientsChange} value={ingredientText} />
-                            </div>
-                            <div className='type-portion-div type-portion-div'>
-                                <select name='type' className='select-type' value={type} onChange={this.handleTypeChange}>
-                                    <option disabled selected hidden>Meal type</option>
-                                    <option>Breakfast</option>
-                                    <option>Lunch</option>
-                                    <option>Dinner</option>
-                                    <option>Snack</option>
-                                </select>
-                                <div class="form-group">
-                                    <input type="number" min='0' name='portions' class="form-control portions-input" onChange={this.handlePortionsChange} value={number_of_portions} />
-                                </div>
-                            </div>
-                            <div className='submit-form-bnt-div'>
-                                <button type="submit" class="btn submit-btn">Submit</button>
-                            </div>
-                        </form>
+                <div className='loading-div'>
+                    <div class="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span class="sr-only">Loading...</span>
                     </div>
                 </div>
-            </>
-        )
+            )
+        } else {
+            const { title, steps, type, number_of_portions, ingredientText } = this.state.recipe
+
+            return (
+                <>
+                    <div className='recipe-form edit-recipe-form'>
+                        <h1 className='recipes-title'>Edit your recipe</h1>
+                        <div className='recipe-form'>
+                            <form onSubmit={this.handleRecipeUpdate}>
+                                <div class="form-group">
+                                    <input type="text" name='title' class="form-control create-form-input" onChange={this.handleTitleChange} value={title} />
+                                </div>
+                                <div class="form-group">
+                                    <img src={this.state.imageSource} alt="recipe-img" />
+                                    <input type="file" name='image' class="form-control create-file-input" onChange={this.handleImageChange} />
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control create-steps-input" name='steps' rows="5" onChange={this.handleStepsChange} value={steps}></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='ingredients' class="form-control create-ingredient-input" onChange={this.handleIngredientsChange} value={ingredientText} />
+                                </div>
+                                <div className='type-portion-div type-portion-div'>
+                                    <select name='type' className='select-type' value={type} onChange={this.handleTypeChange}>
+                                        <option disabled selected hidden>Meal type</option>
+                                        <option>Breakfast</option>
+                                        <option>Lunch</option>
+                                        <option>Dinner</option>
+                                        <option>Snack</option>
+                                    </select>
+                                    <div class="form-group">
+                                        <input type="number" min='0' name='portions' class="form-control portions-input" onChange={this.handlePortionsChange} value={number_of_portions} />
+                                    </div>
+                                </div>
+                                <div className='submit-form-bnt-div'>
+                                    <button type="submit" class="btn submit-btn">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </>
+            )
+        }
     }
 }

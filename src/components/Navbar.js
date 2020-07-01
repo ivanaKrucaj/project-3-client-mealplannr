@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import './CSS/Navbar.css';
 
 export default function Navbar(props) {
+
+    const recipeCount = props.numberOfItemsInBasket > 0 ? `${props.numberOfItemsInBasket}` : ''
+
     return (
         <div className='intro-div fixed-top'>
             <div className='my-nav'>
@@ -19,7 +22,7 @@ export default function Navbar(props) {
                             </li>
                             <li class="nav-item">
                                 <Link to='/mealplan-basket' class="nav-link">
-                                  Mealplan Basket
+                                  Mealplan Basket <span class="badge badge-pill badge-danger">{recipeCount}</span>
                                 </Link>
                             </li>
                             <li class="nav-item">

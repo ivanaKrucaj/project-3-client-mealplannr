@@ -195,6 +195,7 @@ class App extends React.Component {
         <div className='header'>
           <Navbar
             loggedInUser={this.state.loggedInUser}
+            numberOfItemsInBasket = {this.state.mealplanBasket.length}
             onLogout={this.handleLogout}
           />
         </div>

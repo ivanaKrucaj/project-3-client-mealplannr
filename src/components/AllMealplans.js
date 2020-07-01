@@ -51,10 +51,29 @@ export default class AllMealplans extends React.Component {
     }
 
     render() {
+        //if user is not logged in:
+        if (!this.props.loggedInUser) {
+            return (
+                <div>
+                    <div className='mealplan-basket-jumbotron'>
+                        <div class="jumbotron">
+                            <h5 class="lead">Your are not logged in.</h5>
+                            <Link to='/login' class="btn add-mealplan-btn">Log in</Link>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
         if (this.state.loading) {
             return (
-                <div class="spinner-border text-warning" role="status">
-                    <span class="sr-only">Loading...</span>
+                <div className='loading-div'>
+                    <div class="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
             )
         } else {

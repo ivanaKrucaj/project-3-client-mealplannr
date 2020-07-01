@@ -2,6 +2,15 @@ body {
   font-family: 'PT Sans', sans-serif;
 }
 
+/* Loading */
+.loading-div {
+  padding: 300px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Header  component */
 .header {
   background-color: #83bd94;
@@ -107,6 +116,14 @@ body {
   padding: 150px 0 50px;
 }
 
+.mealplan-basket-jumbotron {
+  padding: 200px 0 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .mealplan-input {
   border: 1px solid #e1e1e1;
   border-width: 0 0 2px 0;
@@ -144,6 +161,28 @@ body {
 
 .delete-div {
   text-align: center;
+}
+
+.jumbotron {
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
+  width: 60%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.jumbotron h5 {
+  font-size: 30px;
+  font-weight: 700;
+  padding-bottom: 20px;
+}
+
+.jumbo-par {
+  border: 1px solid #e9da5d;
+  font-size: 18px;
+  padding: 20px 20px 10px;
+  border-width: 2px 0 0;
 }
 
 /* All Mealplans */

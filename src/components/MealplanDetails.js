@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 export default class MealplanDetails extends React.Component {
 
     state = {
+        mealplan: [],
         loading: true
     }
 
@@ -18,7 +19,6 @@ export default class MealplanDetails extends React.Component {
         axios.get(`${config.API_URL}/mealplan/${id}`, { withCredentials: true })
             .then((res) => {
                 this.setState({
-                    // adds mealplan to state:
                     mealplan: res.data,
                     loading: false
                 })
@@ -51,9 +51,14 @@ export default class MealplanDetails extends React.Component {
     render() {
         if (this.state.loading) {
             return (
-                <div class="spinner-border text-warning" role="status">
+                <div className='loading-div'>
+                <div class="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
+                <div class="spinner-grow" style={{ width: '3rem', height: '3rem' }} role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             )
         } else {
             console.log(this.state.mealplan)
@@ -73,10 +78,11 @@ export default class MealplanDetails extends React.Component {
                                     <ul className='shoppinglist-container'>
                                         {
                                             this.state.mealplan.shoppingList.map((listItem, index) => {
+                                                const roundQuantity = listItem.quantity > 1 ? Math.round(listItem.quantity) : listItem.quantity
                                                 return (
                                                     <li key={index} className='shoppinglist-items'>
                                                         <input type='checkbox' checked={listItem.bought} onChange={() => { this.updateShoppingList(listItem._id) }} />
-                                                        <p className='shoppinglist-item-text'>{listItem.quantity}g  {listItem.title}</p>
+                                                        <p className='shoppinglist-item-text'>{roundQuantity}g  {listItem.title}</p>
                                                     </li>
                                                 )
                                             })

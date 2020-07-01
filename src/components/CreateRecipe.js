@@ -1,7 +1,8 @@
 import React from 'react';
 import './CSS/CreateRecipe.css';
 import axios from 'axios';
-import config from '../config'
+import config from '../config';
+import { Link } from 'react-router-dom';
 
 export default class CreateRecipe extends React.Component {
 
@@ -36,52 +37,67 @@ export default class CreateRecipe extends React.Component {
     }
 
     render() {
-        // checking if user is logged in:
-        // if (!this.props.loggedInUser) {
-        //     return null
-        // }
 
+        //if user is not logged in:
         if (!this.props.loggedInUser) {
             return (
-                <div className="text-center">
-                    <p>Please sign in.</p>
+                <div>
+                    <div className='mealplan-basket-jumbotron'>
+                        <div class="jumbotron">
+                            <h5 class="lead">Your are not logged in.</h5>
+                            <Link to='/login' class="btn add-mealplan-btn">Log in</Link>
+                        </div>
+                    </div>
                 </div>
             )
         }
 
-        return (
-            <div className='create-recipe-div'>
-                <h1 className='recipes-title'>Create recipe</h1>
-                <div className='recipe-form'>
-                    <form onSubmit={this.handleCreateRecipe}>
-                        <div class="form-group">
-                            <input type="text" name='title' class="form-control create-form-input" placeholder="Title" />
-                        </div>
-                        <div class="form-group">
-                            <input type="file" name='image' class="form-control create-file-input" />
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control create-steps-input" name='steps' rows="5" placeholder='Steps'></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name='ingredients' class="form-control create-ingredient-input" placeholder="Ingredients" />
-                        </div>
-                        <div className='form-group type-portion-div'>
-                            <select name='type' className='select-type'>
-                                <option disabled selected hidden>Meal type</option>
-                                <option>Breakfast</option>
-                                <option>Lunch</option>
-                                <option>Dinner</option>
-                                <option>Snack</option>
-                            </select>
-                            <input type="number" min='0' name='portions' class="form-control portions-input" placeholder="Portions" />
-                        </div>
-                        <div className='submit-form-bnt-div'>
-                            <button type="submit" class="btn submit-btn">Submit recipe</button>
-                        </div>
-                    </form>
+        if (this.props.loading) {
+            return (
+                <div className='loading-div'>
+                    <div class="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        } else {
+            return (
+                <div className='create-recipe-div'>
+                    <h1 className='recipes-title'>Create recipe</h1>
+                    <div className='recipe-form'>
+                        <form onSubmit={this.handleCreateRecipe}>
+                            <div class="form-group">
+                                <input type="text" name='title' class="form-control create-form-input" placeholder="Title" />
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name='image' class="form-control create-file-input" />
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control create-steps-input" name='steps' rows="5" placeholder='Steps'></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name='ingredients' class="form-control create-ingredient-input" placeholder="Ingredients" />
+                            </div>
+                            <div className='form-group type-portion-div'>
+                                <select name='type' className='select-type'>
+                                    <option disabled selected hidden>Meal type</option>
+                                    <option>Breakfast</option>
+                                    <option>Lunch</option>
+                                    <option>Dinner</option>
+                                    <option>Snack</option>
+                                </select>
+                                <input type="number" min='0' name='portions' class="form-control portions-input" placeholder="Portions" />
+                            </div>
+                            <div className='submit-form-bnt-div'>
+                                <button type="submit" class="btn submit-btn">Submit recipe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )
+        }
     }
 }
