@@ -62,7 +62,6 @@ export default function MealplanBasket(props) {
             )
         }
 
-
         const jumbotron = () => {
             return (
                 <div className='mealplan-basket-jumbotron'>

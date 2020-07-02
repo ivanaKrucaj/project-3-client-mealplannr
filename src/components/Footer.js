@@ -8,8 +8,7 @@ export default function Footer() {
         backgroundColor: '#e9da5d',
         margin: '0',
         fontWeight: '400',
-        fontSize: '13px',
-        margin: '0'
+        fontSize: '13px'
     }
 
     let date = new Date();

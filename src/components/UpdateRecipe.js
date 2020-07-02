@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import config from '../config';
-import { Link } from 'react-router-dom';
 
 export default class UpdateRecipe extends React.Component {
 

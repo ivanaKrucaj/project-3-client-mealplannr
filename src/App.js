@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import 'bulma/css/bulma.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-// import logo from './images/logo.png'
 import axios from 'axios';
 import config from './config'
 import Navbar from './components/Navbar';
@@ -113,11 +112,13 @@ class App extends React.Component {
 
   handleLogout = () => {
     console.log(document.cookie)
-    axios.post(`${config.API_URL}/logout`, { withCredentials: true })
+    axios.post(`${config.API_URL}/logout`)
       .then((res) => {
-        console.log(res)
+        //empties local storage:
+        localStorage.setItem('currentMealplanBasket', '[]')
         this.setState({
-          loggedInUser: null
+          loggedInUser: null,
+          mealplanBasket: []
         }, () => {
           this.props.history.push('/login')
         })
@@ -189,13 +190,10 @@ class App extends React.Component {
 
     return (
       <>
-        {/* <div className='logo-header'>
-          <img src={logo} className='logo' alt='mealplannr-logo' />
-        </div> */}
         <div className='header'>
           <Navbar
             loggedInUser={this.state.loggedInUser}
-            numberOfItemsInBasket = {this.state.mealplanBasket.length}
+            numberOfItemsInBasket={this.state.mealplanBasket.length}
             onLogout={this.handleLogout}
           />
         </div>
