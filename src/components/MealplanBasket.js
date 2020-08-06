@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default function MealplanBasket(props) {
 
@@ -75,9 +75,9 @@ export default function MealplanBasket(props) {
         }
 
         return (
-            <>
+            <div className='full-height-view'>
                 {props.mealplanBasket.length === 0 ? jumbotron() : mealplan()}
-            </>
+            </div>
         )
     }
 }

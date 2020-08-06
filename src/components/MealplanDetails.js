@@ -51,19 +51,18 @@ export default class MealplanDetails extends React.Component {
     render() {
         if (this.state.loading) {
             return (
-                <div className='loading-div'>
-                <div class="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
-                    <span class="sr-only">Loading...</span>
+                <div className='loading-div full-height-view'>
+                    <div class="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
-                <div class="spinner-grow" style={{ width: '3rem', height: '3rem' }} role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
             )
         } else {
-            console.log(this.state.mealplan)
             return (
-                <>
+                <div className='full-height-view'>
                     <p>{this.state.mealplan.title}</p>
                     <div class="row mealplan-tab">
                         <div class="col-3">
@@ -81,7 +80,10 @@ export default class MealplanDetails extends React.Component {
                                                 const roundQuantity = listItem.quantity > 1 ? Math.round(listItem.quantity) : listItem.quantity
                                                 return (
                                                     <li key={index} className='shoppinglist-items'>
-                                                        <input type='checkbox' checked={listItem.bought} onChange={() => { this.updateShoppingList(listItem._id) }} />
+                                                        <label className='checkbox-container'>
+                                                            <input type='checkbox' checked={listItem.bought} onChange={() => { this.updateShoppingList(listItem._id) }} />
+                                                            <span className='checkmark'></span>
+                                                        </label>
                                                         <p className='shoppinglist-item-text'>{roundQuantity}g  {listItem.title}</p>
                                                     </li>
                                                 )
@@ -94,9 +96,9 @@ export default class MealplanDetails extends React.Component {
                                         {
                                             this.state.mealplan.recipes.map((recipe, index) => {
                                                 return (
-                                                    <Link to={`/recipe/${recipe._id}`} className='mealplan-recipe-link'>
-                                                        <div class="card mealplan-tab-recipe" style={{ width: "18rem" }} key={index}>
-                                                            <img src={recipe.image} class="card-img-top" alt="recipe-img" />
+                                                    <Link to={`/recipe/${recipe._id}`} className='mealplan-recipe-link' key={index}>
+                                                        <div class="card mealplan-tab-recipe" style={{ width: "18rem" }}>
+                                                            <img src={recipe.image} class="card-img-top" alt="mealplan-recipe-img" />
                                                             <div class="card-body">
                                                                 <h5 class="card-title">{recipe.title}</h5>
                                                             </div>
@@ -110,8 +112,7 @@ export default class MealplanDetails extends React.Component {
                             </div>
                         </div>
                     </div>
-
-                </>
+                </div>
             )
         }
     }

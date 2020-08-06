@@ -295,7 +295,6 @@ class App extends React.Component {
               )
             }} />
             <Route path='/my-recipes' render={(routeProps) => {
-              console.log(loggedInUser)
               return (
                 <div className='container'>
                   <MyRecipes

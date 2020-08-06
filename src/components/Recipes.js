@@ -38,7 +38,6 @@ export default function Recipes(props) {
                     }
                 </div>
             </div>
-
         )
     }
 }

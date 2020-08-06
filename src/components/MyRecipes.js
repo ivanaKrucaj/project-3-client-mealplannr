@@ -43,7 +43,7 @@ export default class MyRecipes extends React.Component {
         //if user is not logged in:
         if (!this.props.loggedInUser) {
             return (
-                <div>
+                <div className='full-height-view'>
                     <div className='mealplan-basket-jumbotron'>
                         <div class="jumbotron">
                             <h5 class="lead">Your are not logged in.</h5>
@@ -56,7 +56,7 @@ export default class MyRecipes extends React.Component {
 
         if (this.state.loading) {
             return (
-                <div className='loading-div'>
+                <div className='loading-div full-height-view'>
                     <div class="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
@@ -67,7 +67,7 @@ export default class MyRecipes extends React.Component {
             )
         } else {
             return (
-                <div className='my-recipes-page'>
+                <div className='my-recipes-page full-height-view'>
                     <div className='my-recipes-header'>
                         <h1 className='recipes-title'>My recipes</h1>
                     </div>
@@ -75,7 +75,6 @@ export default class MyRecipes extends React.Component {
                         {
                             this.state.recipes.map((recipe, index) => {
                                 return (
-                                    <>
                                         <div class="card my-recipes-card" style={{ width: "18rem" }} key={index}>
                                             <Link to={`/recipe/${recipe._id}`} className='my-recipes-recipe-title'>
                                                 <img src={recipe.image} class="card-img-top" alt="recipe-img" />
@@ -88,7 +87,6 @@ export default class MyRecipes extends React.Component {
                                             </button>
                                             <button class="btn recipe-btn-delete" type='submit' onClick={() => { this.deleteRecipe(recipe._id) }}>Delete</button>
                                         </div>
-                                    </>
                                 )
                             })
                         }

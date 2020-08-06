@@ -12,7 +12,7 @@
 
 .img-div {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   padding-left: 30px;
 }
 
@@ -28,7 +28,7 @@
 .title-div {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .recipe-title {

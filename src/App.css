@@ -197,6 +197,10 @@ body {
   justify-content: space-evenly;
 }
 
+.full-height-view {
+  height: 100vh;
+}
+
 @media (max-width: 480px){
   .home-div {
     width: 100%;
